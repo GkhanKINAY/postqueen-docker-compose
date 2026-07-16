@@ -171,7 +171,7 @@ services:
     container_name: spotlight
     restart: unless-stopped
     ports:
-      - 8969:8969/tcp
+      - 127.0.0.1:8969:8969/tcp
     image: ghcr.io/getsentry/spotlight:latest
     networks:
       - postiz-network
@@ -228,7 +228,7 @@ services:
     container_name: temporal
     restart: always
     ports:
-      - '7233:7233'
+      - '127.0.0.1:7233:7233'
     image: temporalio/auto-setup:1.28.1
     depends_on:
       temporal-postgresql:
@@ -284,7 +284,7 @@ services:
     networks:
       - temporal-network
     ports:
-      - '8080:8080'
+      - '127.0.0.1:8080:8080'
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/healthz"]
       interval: 30s
