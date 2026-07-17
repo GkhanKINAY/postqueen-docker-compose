@@ -3,15 +3,15 @@
 [https://m.youtube.com/watch?v=A6CjAmJOWvA&t=5s](https://m.youtube.com/watch?v=A6CjAmJOWvA&t=5s)
 
 ## Warning
-If you are upgrading from Postiz old version, please make sure you update your docker compose, you can read more here:
+If you are upgrading from PostQueen old version, please make sure you update your docker compose, you can read more here:
 https://docs.postqueen.ai/installation/migration
 
 ### Configuration uses environment variables
 
-The docker containers for Postiz are entirely configured with environment variables.
+The docker containers for PostQueen are entirely configured with environment variables.
 
 - **Option A** - environment variables in your `docker-compose.yml` file
-- **Option B** - environment variables in a `postiz.env` file mounted in `/config` for the PostQueen container only
+- **Option B** - environment variables in a `postqueen.env` file mounted in `/config` for the PostQueen container only
 - **Option C** - environment variables in a `.env` file next to your `docker-compose.yml` file (not recommended).
 
 ... or a mixture of the above options!
