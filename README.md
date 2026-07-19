@@ -4,7 +4,7 @@
 
 ## Warning
 If you are upgrading from PostQueen old version, please make sure you update your docker compose, you can read more here:
-https://docs.postqueen.ai/installation/migration
+https://github.com/GkhanKINAY/postqueen-docs
 
 ### Configuration uses environment variables
 
@@ -16,7 +16,7 @@ The docker containers for PostQueen are entirely configured with environment var
 
 ... or a mixture of the above options!
 
-There is a [configuration reference](https://docs.postqueen.ai/configuration/reference) page with a list
+There is a [configuration reference](https://github.com/GkhanKINAY/postqueen-app/blob/main/.env.example) page with a list
 of configuration settings.
 
 Setup:
