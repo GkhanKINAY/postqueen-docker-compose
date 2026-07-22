@@ -15,7 +15,7 @@
   <a href="https://postqueen.ai">Website</a> ·
   <a href="https://github.com/GkhanKINAY/postqueen-app">Application source</a> ·
   <a href="https://github.com/GkhanKINAY/postqueen-helmchart">Kubernetes / Helm</a> ·
-  <a href="https://github.com/GkhanKINAY/postqueen-app/blob/main/.env.example">Configuration reference</a> ·
+  <a href="https://docs.postqueen.ai/configuration/reference">Configuration reference</a> ·
   <a href="https://docs.postqueen.ai">Docs</a>
 </p>
 
@@ -133,8 +133,8 @@ how to set them). The essentials:
 > the most common cause of a blank screen or login loop.
 
 The full list of every supported variable (social connectors, storage, Stripe, OAuth, short-link
-services, and more) lives in the application's
-[`.env.example`](https://github.com/GkhanKINAY/postqueen-app/blob/main/.env.example).
+services, and more) lives in the
+[configuration reference](https://docs.postqueen.ai/configuration/reference).
 
 ## What you get
 
@@ -174,7 +174,7 @@ The containers are configured entirely with environment variables. You can suppl
 - **Option C** — a `.env` file next to `docker-compose.yaml` (least recommended).
 
 …or a mix of the above. See the
-[configuration reference](https://github.com/GkhanKINAY/postqueen-app/blob/main/.env.example) for the
+[configuration reference](https://docs.postqueen.ai/configuration/reference) for the
 complete list of settings.
 
 ## Upgrading
@@ -193,7 +193,7 @@ migration steps are required.
 
 - **Website:** [postqueen.ai](https://postqueen.ai)
 - **Kubernetes / Helm:** [postqueen-helmchart](https://github.com/GkhanKINAY/postqueen-helmchart)
-- **Configuration reference:** [postqueen-app/.env.example](https://github.com/GkhanKINAY/postqueen-app/blob/main/.env.example)
+- **Configuration reference:** [docs.postqueen.ai/configuration/reference](https://docs.postqueen.ai/configuration/reference)
 - **Documentation:** [docs.postqueen.ai](https://docs.postqueen.ai)
 - **License:** [AGPL-3.0](LICENSE)
 
