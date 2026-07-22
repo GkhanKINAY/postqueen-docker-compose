@@ -163,7 +163,9 @@ Application state is kept in named Docker volumes — most importantly:
 - `postqueen-config` — app configuration
 
 Back these up (e.g. `docker run --rm -v postgres-volume:/data …`) before upgrades or migrations. Removing
-them with `docker compose down -v` deletes all your data.
+them with `docker compose down -v` deletes all your data. For a complete backup also include
+`temporal-postgres-data` (holds in-flight scheduled posts); `postqueen-redis-data` and
+`temporal-elasticsearch-data` are caches/indexes and can be recreated.
 
 ## Configuration
 
