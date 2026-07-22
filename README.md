@@ -1,19 +1,30 @@
 <p align="center">
   <a href="https://postqueen.ai">
-    <img src=".github/assets/header.svg" width="820" alt="PostQueen self-host (Docker Compose)" />
+    <img src=".github/assets/header.svg" width="840" alt="PostQueen self-host (Docker Compose)" />
   </a>
 </p>
 
-<p align="center">
-  <strong>🆕 NEW:</strong> the PostQueen <a href="https://postqueen.ai/agent">Agent CLI</a> + <a href="https://postqueen.ai/mcp">MCP server</a>: plug <b>Claude&nbsp;Code, ChatGPT, Cursor, OpenClaw, Hermes</b> or <b>Codex</b> straight into your channels.
-</p>
+<h3 align="center">🆕&nbsp; NEW: the PostQueen <a href="https://postqueen.ai/agent">Agent CLI</a> + <a href="https://postqueen.ai/mcp">MCP server</a>: plug Claude&nbsp;Code, ChatGPT, Cursor, OpenClaw, Hermes or Codex straight into your channels.</h3>
+
+<br/>
+
+<div align="center">
+  <h2>Self-host the queen of your posts 👑</h2>
+  <p>
+    She writes, designs and schedules across <strong>30+ networks</strong>. You just approve,<br/>
+    all on your own server, and <strong>nothing goes out without your say-so</strong>.
+  </p>
+  <p><em>An open-source alternative to Buffer, Hootsuite, Sprout Social and Later.</em></p>
+</div>
+
+<br/>
 
 <p align="center">
-  <a href="https://postqueen.ai">Website</a> ·
-  <a href="https://postqueen.ai/pricing">Pricing (7-day trial)</a> ·
-  <a href="https://app.postqueen.ai/auth">Start free</a> ·
-  <a href="https://docs.postqueen.ai">Docs</a> ·
-  <a href="https://docs.postqueen.ai/configuration/reference">Configuration reference</a> ·
+  <a href="https://postqueen.ai">Website</a> &nbsp;·&nbsp;
+  <a href="https://postqueen.ai/pricing">Pricing</a> &nbsp;·&nbsp;
+  <a href="https://app.postqueen.ai/auth">Start free</a> &nbsp;·&nbsp;
+  <a href="https://docs.postqueen.ai">Docs</a> &nbsp;·&nbsp;
+  <a href="https://docs.postqueen.ai/configuration/reference">Configuration reference</a> &nbsp;·&nbsp;
   <a href="https://github.com/GkhanKINAY/postqueen-helmchart">Helm</a>
 </p>
 
@@ -23,32 +34,54 @@
   <a href="https://github.com/GkhanKINAY/postqueen-helmchart"><img src="https://img.shields.io/badge/Helm-Kubernetes-0F1689?logo=helm&logoColor=white" alt="Helm chart for Kubernetes"></a>
 </p>
 
+<br/>
+
 <p align="center">
-  <img src=".github/assets/channels.svg" width="760" alt="Supported social networks" />
+  <img src=".github/assets/channels.svg" width="780" alt="Supported social networks" />
 </p>
+
+<p align="center">
+  <a href="https://docs.postqueen.ai"><strong>Explore the docs »</strong></a>
+  &nbsp;&nbsp;·&nbsp;&nbsp;
+  <a href="https://postqueen.ai/pricing"><strong>Start a 7-day free trial »</strong></a>
+</p>
+
+<br/>
+
+> PostQueen is a fork of [Postiz](https://github.com/gitroomhq/postiz-app) (AGPL-3.0). Huge thanks to Nevo David and the Postiz contributors for the foundation this project stands on.
 
 ---
 
-## Self-host PostQueen with Docker Compose
+## 🐳 Self-host PostQueen with Docker Compose
 
 This repository is the **primary self-host path** for [PostQueen](https://postqueen.ai), the open-source, AI-native social media scheduler that publishes to **30+ social networks**. The included `docker-compose.yaml` pulls the prebuilt application image [`ghcr.io/gkhankinay/postqueen-app:latest`](https://github.com/GkhanKINAY/postqueen-app) and brings up the whole stack, so there is **no build step**: clone, set a couple of values inline, and run `docker compose up -d`.
 
-> **☁️ Prefer zero setup?** This stack is powerful but heavy (see [System requirements](#system-requirements) below). Skip it entirely and start a **[7-day free trial](https://postqueen.ai/pricing)**: the managed cloud runs everything for you, and you are posting in minutes with nothing to maintain.
+> **☁️ Prefer zero setup?** This stack is powerful but heavy (see [System requirements](#-system-requirements) below). Skip it entirely and start a **[7-day free trial](https://postqueen.ai/pricing)**: the managed cloud runs everything for you, and you are posting in minutes with nothing to maintain.
 
-> PostQueen is a fork of [Postiz](https://github.com/gitroomhq/postiz-app) (AGPL-3.0). Huge thanks to Nevo David and the Postiz contributors for the foundation this project stands on. This repository is distributed under the [AGPL-3.0](LICENSE) license.
+<br/>
 
-## Prerequisites
+---
+
+## 📋 Prerequisites
 
 - **Docker Engine** 24 or newer
 - **Docker Compose v2** (the `docker compose` plugin, not the legacy `docker-compose` binary)
 
-## System requirements
+<br/>
+
+---
+
+## 🧰 System requirements
 
 This stack is **heavy**. Alongside the app it runs a full [Temporal](https://temporal.io) cluster: the Temporal server, its own PostgreSQL, and an Elasticsearch visibility store (its JVM heap is pinned to roughly 256 MB in the compose file). A small VPS can OOM during startup. Plan for a **multi-GB host** (about **4 GB of RAM or more** recommended) with a few GB of free disk for the named volumes.
 
-> **Don't want to run all this?** Start a **[7-day free trial](https://postqueen.ai/pricing)** instead. The managed cloud runs the entire stack (Postgres, Redis, and the full Temporal cluster) for you, so you can be posting in minutes with nothing to provision or babysit.
+> **☁️ Don't want to run all this?** Start a **[7-day free trial](https://postqueen.ai/pricing)** instead. The managed cloud runs the entire stack (Postgres, Redis, and the full Temporal cluster) for you, so you can be posting in minutes with nothing to provision or babysit.
 
-## Quick start
+<br/>
+
+---
+
+## 🚀 Quick start
 
 All configuration lives **inline in `docker-compose.yaml`**. There is no `.env.example` to copy: you edit the `environment:` blocks directly, then bring the stack up.
 
@@ -70,16 +103,24 @@ The first run takes a couple of minutes while Temporal initializes. Once the con
 http://localhost:4007
 ```
 
-> There is **no TLS** in the default configuration: the app is served over plain **HTTP** on port `4007`. Put a reverse proxy (Caddy, nginx, Traefik, and so on) in front of it if you expose it publicly, and point the URL variables at your real, externally reachable address.
+> ⚠️ There is **no TLS** in the default configuration: the app is served over plain **HTTP** on port `4007`. Put a reverse proxy (Caddy, nginx, Traefik, and so on) in front of it if you expose it publicly, and point the URL variables at your real, externally reachable address.
 
-## Before your first run
+<br/>
+
+---
+
+## 🔧 Before your first run
 
 The shipped `docker-compose.yaml` contains **placeholder secrets** meant for local testing only. Change these before exposing the app to anyone:
 
 - **`JWT_SECRET`** ships as a literal placeholder (`random string that is unique to every install...`). Replace it with your own long, random string. Leaving the placeholder in place is a security hole: anyone could forge session tokens.
 - **Database password** defaults to `postqueen-password`. Change it in the `postqueen-postgres` service **and** in the matching `DATABASE_URL` on the app service so the two stay in sync.
 
-## Required environment
+<br/>
+
+---
+
+## ⚙️ Required environment
 
 The app is configured entirely through environment variables, set inline in the `environment:` block of the `postqueen` service. The essentials:
 
@@ -97,7 +138,11 @@ The app is configured entirely through environment variables, set inline in the 
 
 The full list of every supported variable (social connectors, storage, Stripe, OAuth, short-link services, and more) lives in the [configuration reference](https://docs.postqueen.ai/configuration/reference).
 
-## What you get
+<br/>
+
+---
+
+## 📦 What you get
 
 Bringing the stack up starts these services:
 
@@ -114,7 +159,11 @@ Bringing the stack up starts these services:
 
 An optional `spotlight` service for debugging is available under the `debug` Compose profile and is off by default.
 
-## Data and backups
+<br/>
+
+---
+
+## 💾 Data and backups
 
 Application state is kept in named Docker volumes, most importantly:
 
@@ -124,7 +173,11 @@ Application state is kept in named Docker volumes, most importantly:
 
 Back these up (for example with `docker run --rm -v postgres-volume:/data ...`) before upgrades or migrations. Removing them with `docker compose down -v` deletes all your data. For a complete backup also include `temporal-postgres-data` (it holds in-flight scheduled posts). The `postqueen-redis-data` and `temporal-elasticsearch-data` volumes are caches and indexes that can be recreated.
 
-## Configuration
+<br/>
+
+---
+
+## 🔀 Configuration
 
 Configuration is set inline in `docker-compose.yaml`. You can supply the variables in a few ways:
 
@@ -134,7 +187,11 @@ Configuration is set inline in `docker-compose.yaml`. You can supply the variabl
 
 See the [configuration reference](https://docs.postqueen.ai/configuration/reference) for the complete list of settings.
 
-## Upgrading
+<br/>
+
+---
+
+## ⬆️ Upgrading
 
 Pull the latest image and recreate the app container:
 
@@ -145,11 +202,19 @@ docker compose up -d
 
 Review the [migration guide](https://docs.postqueen.ai/installation/migration) before major upgrades in case migration steps are required.
 
-## Kubernetes
+<br/>
+
+---
+
+## ☸️ Kubernetes
 
 Prefer to run PostQueen on Kubernetes instead of Docker Compose? Use the official Helm chart: [postqueen-helmchart](https://github.com/GkhanKINAY/postqueen-helmchart).
 
-## Links
+<br/>
+
+---
+
+## 🔗 Links
 
 - **Website:** [postqueen.ai](https://postqueen.ai)
 - **Cloud and 7-day trial:** [postqueen.ai/pricing](https://postqueen.ai/pricing)
@@ -158,7 +223,20 @@ Prefer to run PostQueen on Kubernetes instead of Docker Compose? Use the officia
 - **Kubernetes / Helm:** [postqueen-helmchart](https://github.com/GkhanKINAY/postqueen-helmchart)
 - **Configuration reference:** [docs.postqueen.ai/configuration/reference](https://docs.postqueen.ai/configuration/reference)
 - **Documentation:** [docs.postqueen.ai](https://docs.postqueen.ai)
-- **License:** [AGPL-3.0](LICENSE)
+
+<br/>
+
+---
+
+## ❤️ Community & Support
+
+We would love to hear from you, whether you hit a bug, have an idea, or just want to say hi:
+
+- 🐛 **Found a bug or have a feature idea?** [Open an issue](https://github.com/GkhanKINAY/postqueen-docker-compose/issues).
+- 💌 **Need a hand?** Email **support@postqueen.ai**.
+- 📚 **Getting started?** The [docs](https://docs.postqueen.ai) walk you through everything.
+
+If PostQueen saves you time, a ⭐ on the repo genuinely helps other people find it.
 
 ## License
 
