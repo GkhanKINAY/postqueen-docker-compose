@@ -16,7 +16,7 @@
   <a href="https://github.com/GkhanKINAY/postqueen-app">Application source</a> ·
   <a href="https://github.com/GkhanKINAY/postqueen-helmchart">Kubernetes / Helm</a> ·
   <a href="https://github.com/GkhanKINAY/postqueen-app/blob/main/.env.example">Configuration reference</a> ·
-  <a href="https://github.com/GkhanKINAY/postqueen-docs">Docs</a>
+  <a href="https://docs.postqueen.ai">Docs</a>
 </p>
 
 <p align="center">
@@ -186,7 +186,7 @@ docker compose pull
 docker compose up -d
 ```
 
-Review the [docs repository](https://github.com/GkhanKINAY/postqueen-docs) before major upgrades in case
+Review the [migration guide](https://docs.postqueen.ai/installation/migration) before major upgrades in case
 migration steps are required.
 
 ## Links
@@ -194,7 +194,7 @@ migration steps are required.
 - **Website:** [postqueen.ai](https://postqueen.ai)
 - **Kubernetes / Helm:** [postqueen-helmchart](https://github.com/GkhanKINAY/postqueen-helmchart)
 - **Configuration reference:** [postqueen-app/.env.example](https://github.com/GkhanKINAY/postqueen-app/blob/main/.env.example)
-- **Documentation:** [postqueen-docs](https://github.com/GkhanKINAY/postqueen-docs)
+- **Documentation:** [docs.postqueen.ai](https://docs.postqueen.ai)
 - **License:** [AGPL-3.0](LICENSE)
 
 ## License

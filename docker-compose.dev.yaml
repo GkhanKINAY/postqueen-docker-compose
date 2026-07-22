@@ -1,5 +1,5 @@
 # Do **not** use this yml for production. It is not up-to-date.
-# For self-hosting use docker-compose.yaml in this repo; see https://github.com/GkhanKINAY/postqueen-docs
+# For self-hosting use docker-compose.yaml in this repo; see https://docs.postqueen.ai/installation/docker-compose
 # This is only for the dev environment
 
 services:
