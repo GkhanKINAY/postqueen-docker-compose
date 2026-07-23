@@ -74,6 +74,10 @@ cd postqueen-docker-compose
 docker compose up -d
 ```
 
+<p align="center">
+  <img src=".github/assets/compose-up.svg" width="620" alt="docker compose up: the PostQueen stack starts and is ready on localhost 4007" />
+</p>
+
 The first run takes a couple of minutes while Temporal initializes. Once the containers are healthy, open the app at:
 
 ```
