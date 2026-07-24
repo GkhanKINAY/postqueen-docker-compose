@@ -81,7 +81,7 @@
 
 ## 🐳 What you are deploying
 
-[PostQueen](https://github.com/GkhanKINAY/postqueen-app) is an open-source AI social media assistant: it writes, schedules and publishes your posts to 30+ networks. This repository is its primary self-host path: a single `docker-compose.yaml` that pulls the prebuilt image [`ghcr.io/gkhankinay/postqueen-app:latest`](https://github.com/GkhanKINAY/postqueen-app) and brings up the whole stack, the app itself plus PostgreSQL, Redis and a full [Temporal](https://temporal.io) cluster for scheduling, with no build step. Fair warning: that Temporal cluster makes the stack heavy, so plan for a host with 4 GB of RAM or more. In exchange, self-hosting is completely free with no channel limits: every connector and every feature, on your own hardware.
+[PostQueen](https://github.com/GkhanKINAY/postqueen-app) is an open-source AI social media manager: you tell her what to share and she writes, schedules and publishes it to 30+ networks. This repository is the easiest way to run her on your own server. One `docker-compose.yaml` pulls the prebuilt image [`ghcr.io/gkhankinay/postqueen-app:latest`](https://github.com/GkhanKINAY/postqueen-app) and brings up everything she needs, the app plus PostgreSQL, Redis and a full [Temporal](https://temporal.io) cluster for scheduling, with no build step. The Temporal cluster does make the stack hungry, so give it a host with 4 GB of RAM or more. In return, self-hosting is completely free with no channel limits: every connector and every feature, on your own hardware.
 
 ---
 
@@ -90,7 +90,7 @@
 - **Docker Engine** 24 or newer
 - **Docker Compose v2** (the `docker compose` plugin, not the legacy `docker-compose` binary)
 
-This stack is **heavy**. Alongside the app it runs a full Temporal cluster: the Temporal server, its own PostgreSQL, and an Elasticsearch visibility store (its JVM heap is pinned to roughly 256 MB in the compose file). A small VPS can OOM during startup. Plan for a **multi-GB host** (about **4 GB of RAM or more** recommended) with a few GB of free disk for the named volumes.
+The stack earns its appetite: alongside the app it runs a full Temporal cluster with the Temporal server, its own PostgreSQL and an Elasticsearch visibility store (JVM heap around 256 MB in the compose file). A small VPS can OOM during startup, so plan for a host with about **4 GB of RAM or more** and a few GB of free disk for the named volumes.
 
 ---
 
@@ -172,7 +172,7 @@ An optional `spotlight` service for debugging is available under the `debug` Com
 
 ## 🌐 Going to production (HTTPS and OAuth)
 
-The compose stack serves plain HTTP on `localhost:4007`. To connect real social accounts you need a public HTTPS domain behind a reverse proxy, because the networks send their OAuth callbacks there. Three steps take you from local toy to production instance:
+The compose stack serves plain HTTP on `localhost:4007`. To connect real social accounts you need a public HTTPS domain behind a reverse proxy, because the networks send their OAuth callbacks there. Three steps take you from localhost to a production instance:
 
 1. **Put a reverse proxy in front of port `4007`** and let it terminate TLS. Step-by-step guides: [Caddy](https://docs.postqueen.ai/reverse-proxies/caddy), [nginx](https://docs.postqueen.ai/reverse-proxies/nginx), [Traefik](https://docs.postqueen.ai/reverse-proxies/traefik).
 2. **Point the URL variables at your domain.** Set `MAIN_URL`, `FRONTEND_URL` and `NEXT_PUBLIC_BACKEND_URL` (with `/api` appended) to the public HTTPS address, then recreate the app container.
@@ -221,7 +221,7 @@ If your infrastructure runs on Kubernetes, skip Compose and use the official Hel
 
 ## ☁️ Cloud, the fast lane
 
-Skip the setup entirely. Create an account, connect your channels, and schedule your first post today: **7-day free trial**, nothing to install, nothing to run.
+Skip the setup entirely: create an account, connect your channels, and your first post can go out today. The **7-day trial** is free, and there is nothing to install or maintain.
 
 <p align="center">
   <a href="https://postqueen.ai"><img src=".github/assets/cta-cloud.svg" height="52" alt="Start free for 7 days" /></a>
@@ -233,15 +233,15 @@ Skip the setup entirely. Create an account, connect your channels, and schedule 
 
 ## 🦞 Meet her open agents: OpenClaw &amp; Hermes
 
-The two open-source agents everyone is running right now both speak PostQueen natively. **OpenClaw** lives on your machine and answers you from any chat app. **Hermes** does that too — and give it one brief, it plans your whole week on its own. Both drive the same `postqueen` CLI.
+Two open-source agents already speak PostQueen natively. **OpenClaw** lives on your machine and turns any chat app into her front door. **Hermes** does the same, then goes further: hand it a single brief and it plans, writes and schedules your entire week on its own. Both drive the same `postqueen` CLI, so everything they do shows up on your calendar.
 
 <p align="center">
   <img src=".github/assets/open-agents.svg" width="660" alt="OpenClaw and Hermes running PostQueen: chat apps feed OpenClaw, a one-line brief feeds Hermes, both drive the postqueen CLI and posts land on the calendar" />
 </p>
 
-<a href="https://postqueen.ai/openclaw"><img src=".github/assets/spotlight-openclaw.svg" width="410" alt="OpenClaw: runs on your machine; message her from WhatsApp, Telegram, Slack or Discord — set-up guide" /></a> <a href="https://postqueen.ai/hermes-agent"><img src=".github/assets/spotlight-hermes.svg" width="410" alt="Hermes: the self-improving autonomous agent; one brief becomes a planned, verified week — set-up guide" /></a>
+<a href="https://postqueen.ai/openclaw"><img src=".github/assets/spotlight-openclaw.svg" width="410" alt="OpenClaw: runs on your machine and takes her messages from WhatsApp, Telegram, Slack or Discord. Opens the set-up guide." /></a> <a href="https://postqueen.ai/hermes-agent"><img src=".github/assets/spotlight-hermes.svg" width="410" alt="Hermes: the self-improving autonomous agent that turns one brief into a planned, verified week. Opens the set-up guide." /></a>
 
-**Any other agent works too** — anything that can run a CLI command or call MCP can run your socials. [Agent guide »](https://postqueen.ai/agent)
+**Any other agent works too.** If it can run a CLI command or call MCP, it can run your socials. [Agent guide »](https://postqueen.ai/agent)
 
 <br/>
 
@@ -249,7 +249,7 @@ The two open-source agents everyone is running right now both speak PostQueen na
 
 ## 🌐 Publish everywhere
 
-Write once, be everywhere. PostQueen publishes to **30+ networks** out of the box:
+One post from you, and she is everywhere at once. PostQueen publishes to **30+ networks** out of the box:
 
 <p align="center">
   <img src=".github/assets/channels/instagram.svg" height="44" alt="Instagram" /> <img src=".github/assets/channels/youtube.svg" height="44" alt="YouTube" /> <img src=".github/assets/channels/google-business.svg" height="44" alt="Google Business Profile" /> <img src=".github/assets/channels/dribbble.svg" height="44" alt="Dribbble" /> <img src=".github/assets/channels/linkedin.svg" height="44" alt="LinkedIn" /> <img src=".github/assets/channels/reddit.svg" height="44" alt="Reddit" /> <img src=".github/assets/channels/tiktok.svg" height="44" alt="TikTok" /> <img src=".github/assets/channels/facebook.svg" height="44" alt="Facebook" /> <img src=".github/assets/channels/pinterest.svg" height="44" alt="Pinterest" /> <img src=".github/assets/channels/threads.svg" height="44" alt="Threads" /> <img src=".github/assets/channels/x.svg" height="44" alt="X" /> <img src=".github/assets/channels/slack.svg" height="44" alt="Slack" /> <img src=".github/assets/channels/discord.svg" height="44" alt="Discord" /> <img src=".github/assets/channels/mastodon.svg" height="44" alt="Mastodon" /> <img src=".github/assets/channels/bluesky.svg" height="44" alt="Bluesky" /> <img src=".github/assets/channels/lemmy.svg" height="44" alt="Lemmy" /> <img src=".github/assets/channels/warpcast.svg" height="44" alt="Farcaster" /> <img src=".github/assets/channels/telegram.svg" height="44" alt="Telegram" /> <img src=".github/assets/channels/nostr.svg" height="44" alt="Nostr" /> <img src=".github/assets/channels/vk.svg" height="44" alt="VK" /> <img src=".github/assets/channels/devto.svg" height="44" alt="Dev.to" /> <img src=".github/assets/channels/medium.svg" height="44" alt="Medium" /> <img src=".github/assets/channels/hashnode.svg" height="44" alt="Hashnode" /> <img src=".github/assets/channels/wordpress.svg" height="44" alt="WordPress" /> <img src=".github/assets/channels/whop.svg" height="44" alt="Whop" /> <img src=".github/assets/channels/kick.svg" height="44" alt="Kick" /> <img src=".github/assets/channels/mewe.svg" height="44" alt="MeWe" /> <img src=".github/assets/channels/twitch.svg" height="44" alt="Twitch" /> <img src=".github/assets/channels/listmonk.svg" height="44" alt="Listmonk" /> <img src=".github/assets/channels/skool.svg" height="44" alt="Skool" />
