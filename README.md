@@ -201,7 +201,7 @@ docker compose pull
 docker compose up -d
 ```
 
-Review the [migration guide](https://docs.postqueen.ai/installation/migration) before major upgrades in case migration steps are required.
+Check the [release notes](https://github.com/GkhanKINAY/postqueen-app/releases) before major upgrades in case extra steps are required.
 
 ---
 
