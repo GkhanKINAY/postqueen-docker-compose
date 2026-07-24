@@ -220,7 +220,7 @@ Review the [migration guide](https://docs.postqueen.ai/installation/migration) b
 
 ## ☸️ Kubernetes instead?
 
-If your infrastructure runs on Kubernetes, skip Compose and use the official Helm chart: [postqueen-helmchart](https://github.com/GkhanKINAY/postqueen-helmchart) packages the same stack (app, PostgreSQL, Redis, Temporal) with values-driven configuration. The [Kubernetes installation guide](https://docs.postqueen.ai/installation/kubernetes-helm) walks you through it.
+If your infrastructure runs on Kubernetes, skip Compose and use the official Helm chart: [postqueen-helmchart](https://github.com/GkhanKINAY/postqueen-helmchart) packages the app with bundled PostgreSQL and Redis subcharts and values-driven configuration (bring your own Temporal, the chart's README explains the `TEMPORAL_ADDRESS` requirement). The [Kubernetes installation guide](https://docs.postqueen.ai/installation/kubernetes-helm) walks you through it.
 
 ---
 
@@ -306,6 +306,7 @@ LinkedIn and Instagram each support both personal and page posting. New connecto
 - 🐛 **Found a bug or have an idea?** [Open an issue](https://github.com/GkhanKINAY/postqueen-docker-compose/issues).
 - 💌 **Need a hand?** Email **support@postqueen.ai**.
 - 📚 **Getting started?** The [docs](https://docs.postqueen.ai) walk you through everything.
+- 🤝 **Want to contribute?** Start with the [contribution guide](https://github.com/GkhanKINAY/postqueen-app/blob/main/CONTRIBUTING.md); security reports go to [SECURITY.md](https://github.com/GkhanKINAY/postqueen-app/blob/main/SECURITY.md).
 
 If PostQueen saves you time, a ⭐ on the repo genuinely helps other people find it.
 
