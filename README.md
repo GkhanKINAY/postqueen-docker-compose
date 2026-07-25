@@ -147,7 +147,11 @@ The app is configured entirely through environment variables, set inline in the 
 
 > Point the three URL variables (`MAIN_URL`, `FRONTEND_URL`, and `NEXT_PUBLIC_BACKEND_URL`) at the **same externally reachable address**, with `/api` appended for the backend URL. Mismatched URLs are the most common cause of a blank screen or a login loop.
 
-You can supply the variables in a few ways: inline in the `environment:` blocks (how the file ships), via an env file such as `postqueen.env` mounted into `/config` on the app container, or through a `.env` file next to `docker-compose.yaml` (least recommended). The full list of every supported variable (social connectors, storage, Stripe, OAuth, short-link services, and more) lives in the [configuration reference](https://docs.postqueen.ai/configuration/reference).
+There are two ways to supply the variables. Edit the `environment:` blocks directly, which is how the file ships, or add an `env_file:` key to the `postqueen` service yourself and keep the values in a file next to the compose file.
+
+> Two things that look like they should work and do not. Dropping a `.env` beside `docker-compose.yaml` passes nothing to the container: Compose only reads such a file to substitute `${VARIABLE}` placeholders in the YAML, and this file has none. Mounting a file into `/config` does nothing either, because nothing in the image reads that path. Also note that when a variable appears in both places, `environment:` wins over `env_file:`.
+
+The full list of every supported variable (social connectors, storage, Stripe, OAuth, short-link services, and more) lives in the [configuration reference](https://docs.postqueen.ai/configuration/reference).
 
 ---
 
