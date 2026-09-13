@@ -1,2 +1,5 @@
 .vscode
 docker-compose.override.yaml
+.env
+.env.*
+!.env.example

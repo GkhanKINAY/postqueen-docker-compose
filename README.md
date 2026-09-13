@@ -96,16 +96,15 @@ The stack earns its appetite: alongside the app it runs a full Temporal cluster 
 
 ## 🚀 Quick start
 
-All configuration lives **inline in `docker-compose.yaml`**. There is **no `.env.example` to copy**: you edit the `environment:` blocks directly, then bring the stack up.
+Configuration uses the `environment:` block in `docker-compose.yaml`. Defaults ship inline. A sibling `.env` now reaches the container: listed keys use `${VAR:-default}`, and the `postqueen` service also loads `.env` when that file exists.
 
 ```bash
 git clone https://github.com/GkhanKINAY/postqueen-docker-compose
 cd postqueen-docker-compose
 
-# Open docker-compose.yaml and, before your first run, set:
-#   1. JWT_SECRET      : replace the placeholder with a long, unique random string
-#   2. your public URLs: MAIN_URL, FRONTEND_URL, NEXT_PUBLIC_BACKEND_URL
-#                        (only needed if you expose the app beyond localhost)
+# Before your first run, set JWT_SECRET (in `.env` or in docker-compose.yaml)
+# to a long, unique random string. If you expose the app beyond localhost,
+# also set MAIN_URL, FRONTEND_URL, and NEXT_PUBLIC_BACKEND_URL.
 
 docker compose up -d
 ```
@@ -124,7 +123,7 @@ http://localhost:4007
 
 The shipped `docker-compose.yaml` contains **placeholder secrets** meant for local testing only. Change these before exposing the app to anyone:
 
-- **`JWT_SECRET`** ships as a literal placeholder (`random string that is unique to every install...`). Replace it with your own long, random string. Leaving the placeholder in place is a security hole: anyone could forge session tokens.
+- **`JWT_SECRET`** ships with a placeholder default (`random string that is unique to every install...`). Replace it with your own long, random string. Leaving the placeholder in place is a security hole: anyone could forge session tokens.
 - **Database password** defaults to `postqueen-password`. Change it in the `postqueen-postgres` service **and** in the matching `DATABASE_URL` on the app service so the two stay in sync.
 
 > ⚠️ There is no TLS here: the stack serves plain HTTP on `localhost:4007`. That is fine for trying things out, but before you expose the app or connect real social accounts, read [Going to production](#-going-to-production-https-and-oauth) below.
@@ -133,7 +132,7 @@ The shipped `docker-compose.yaml` contains **placeholder secrets** meant for loc
 
 ## 🔧 Required environment
 
-The app is configured entirely through environment variables, set inline in the `environment:` block of the `postqueen` service. The essentials:
+The app is configured entirely through environment variables on the `postqueen` service. The essentials, with the same defaults as before:
 
 | Variable | Default in compose | What it does |
 | --- | --- | --- |
@@ -147,9 +146,25 @@ The app is configured entirely through environment variables, set inline in the 
 
 > Point the three URL variables (`MAIN_URL`, `FRONTEND_URL`, and `NEXT_PUBLIC_BACKEND_URL`) at the **same externally reachable address**, with `/api` appended for the backend URL. Mismatched URLs are the most common cause of a blank screen or a login loop.
 
-There are two ways to supply the variables. Edit the `environment:` blocks directly, which is how the file ships, or add an `env_file:` key to the `postqueen` service yourself and keep the values in a file next to the compose file.
+Supply values in either place:
 
-> Two things that look like they should work and do not. Dropping a `.env` beside `docker-compose.yaml` passes nothing to the container: Compose only reads such a file to substitute `${VARIABLE}` placeholders in the YAML, and this file has none. Mounting a file into `/config` does nothing either, because nothing in the image reads that path. Also note that when a variable appears in both places, `environment:` wins over `env_file:`.
+1. **A `.env` file next to `docker-compose.yaml`.** Compose interpolates `${VAR}` from it, and `env_file` also injects extra keys that are not listed in the YAML (Instagram, Telegram, email, `GUARD_*`, `ENCRYPTION_KEY`, and the rest of the documented set are listed so they pass through).
+2. **Edit the `environment:` block** if you would rather keep everything in the YAML.
+
+```env
+JWT_SECRET=your-long-random-string
+INSTAGRAM_APP_ID=12345678901234567890
+EMAIL_PROVIDER=resend
+RESEND_API_KEY=re_your_key_here
+```
+
+After changing variables, recreate only the app container so it picks up the new environment:
+
+```bash
+docker compose up -d --no-deps --force-recreate postqueen
+```
+
+> Mounting a file into `/config` does nothing: nothing in the image reads that path. A literal in `environment:` still wins over `env_file` for the same key; the `${VAR:-default}` form is what lets a sibling `.env` fill that key instead of an empty pin.
 
 The full list of every supported variable (social connectors, storage, Stripe, OAuth, short-link services, and more) lives in the [configuration reference](https://docs.postqueen.ai/configuration/reference).
 
