@@ -3,120 +3,210 @@ services:
     image: ghcr.io/gkhankinay/postqueen-app:latest
     container_name: postqueen
     restart: always
+    # Sibling `.env` is optional. Compose v2.24+ skips a missing file
+    # (`required: false`); listed keys also interpolate from `.env` / `--env-file`
+    # via ${VAR:-default} below, so a value there reaches the container even
+    # when environment: would otherwise pin an empty literal.
+    env_file:
+      - path: .env
+        required: false
     environment:
       # === Required Settings
-      MAIN_URL: 'http://localhost:4007'
-      FRONTEND_URL: 'http://localhost:4007'
-      NEXT_PUBLIC_BACKEND_URL: 'http://localhost:4007/api'
-      JWT_SECRET: 'random string that is unique to every install - just type random characters here!'
-      DATABASE_URL: 'postgresql://postqueen-user:postqueen-password@postqueen-postgres:5432/postqueen-db-local'
-      REDIS_URL: 'redis://postqueen-redis:6379'
-      BACKEND_INTERNAL_URL: 'http://localhost:3000'
-      TEMPORAL_ADDRESS: "temporal:7233"
-      IS_GENERAL: 'true'
-      DISABLE_REGISTRATION: 'false'
-      RUN_CRON: 'true'
+      # Unset keys keep the defaults. A sibling `.env` (or `--env-file`) fills
+      # ${VAR}. environment: still wins over env_file for the same key, but the
+      # interpolation means a `.env` value is what environment: sets.
+      MAIN_URL: "${MAIN_URL:-http://localhost:4007}"
+      FRONTEND_URL: "${FRONTEND_URL:-http://localhost:4007}"
+      NEXT_PUBLIC_BACKEND_URL: "${NEXT_PUBLIC_BACKEND_URL:-http://localhost:4007/api}"
+      JWT_SECRET: "${JWT_SECRET:-random string that is unique to every install - just type random characters here!}"
+      # Separate from JWT_SECRET: encrypts integration tokens at rest. Unset,
+      # the app falls back to JWT_SECRET. Set it before you have real data so
+      # you can rotate the signing key later without disconnecting channels.
+      ENCRYPTION_KEY: "${ENCRYPTION_KEY:-}"
+      PREVIOUS_ENCRYPTION_KEY: "${PREVIOUS_ENCRYPTION_KEY:-}"
+      DATABASE_URL: "${DATABASE_URL:-postgresql://postqueen-user:postqueen-password@postqueen-postgres:5432/postqueen-db-local}"
+      REDIS_URL: "${REDIS_URL:-redis://postqueen-redis:6379}"
+      BACKEND_INTERNAL_URL: "${BACKEND_INTERNAL_URL:-http://localhost:3000}"
+      TEMPORAL_ADDRESS: "${TEMPORAL_ADDRESS:-temporal:7233}"
+      IS_GENERAL: "${IS_GENERAL:-true}"
+      DISABLE_REGISTRATION: "${DISABLE_REGISTRATION:-false}"
+      RUN_CRON: "${RUN_CRON:-true}"
+      PRISMA_MIGRATE: "${PRISMA_MIGRATE:-}"
 
       # === Storage Settings
-      STORAGE_PROVIDER: 'local'
-      UPLOAD_DIRECTORY: '/uploads'
-      NEXT_PUBLIC_UPLOAD_STATIC_DIRECTORY: 'uploads'
+      STORAGE_PROVIDER: "${STORAGE_PROVIDER:-local}"
+      UPLOAD_DIRECTORY: "${UPLOAD_DIRECTORY:-/uploads}"
+      NEXT_PUBLIC_UPLOAD_STATIC_DIRECTORY: "${NEXT_PUBLIC_UPLOAD_STATIC_DIRECTORY:-uploads}"
+      PREVIOUS_FRONTEND_URLS: "${PREVIOUS_FRONTEND_URLS:-}"
+      UPLOAD_LIMIT: "${UPLOAD_LIMIT:-}"
+      UPLOAD_TMP_DIR: "${UPLOAD_TMP_DIR:-}"
 
       # === Cloudflare (R2) Settings
       # STORAGE_PROVIDER: 'cloudflare'
-      # CLOUDFLARE_ACCOUNT_ID: 'your-account-id'
-      # CLOUDFLARE_ACCESS_KEY: 'your-access-key'
-      # CLOUDFLARE_SECRET_ACCESS_KEY: 'your-secret-access-key'
-      # CLOUDFLARE_BUCKETNAME: 'your-bucket-name'
       # The bucket's public base URL (r2.dev or a custom domain), not the S3
       # API endpoint — it is served to browsers and social platforms unsigned.
-      # CLOUDFLARE_BUCKET_URL: 'https://pub-your-hash.r2.dev'
-      # CLOUDFLARE_REGION: 'auto'
       # Only for jurisdiction-restricted buckets ('eu'); such a bucket is
       # invisible on the account-wide endpoint. Blank for a normal bucket.
-      # CLOUDFLARE_JURISDICTION: ''
       # Upload through the backend rather than from the browser to the bucket.
       # Slower and uses server bandwidth, but immune to anything that rewrites
       # the request in transit (privacy extensions, proxies) and invalidates the
       # presigned signature — which R2 rejects as a bare 403 that the browser
       # then reports as a CORS error.
-      # UPLOAD_VIA_SERVER: 'true'
+      CLOUDFLARE_ACCOUNT_ID: "${CLOUDFLARE_ACCOUNT_ID:-}"
+      CLOUDFLARE_ACCESS_KEY: "${CLOUDFLARE_ACCESS_KEY:-}"
+      CLOUDFLARE_SECRET_ACCESS_KEY: "${CLOUDFLARE_SECRET_ACCESS_KEY:-}"
+      CLOUDFLARE_BUCKETNAME: "${CLOUDFLARE_BUCKETNAME:-}"
+      CLOUDFLARE_BUCKET_URL: "${CLOUDFLARE_BUCKET_URL:-}"
+      CLOUDFLARE_REGION: "${CLOUDFLARE_REGION:-}"
+      CLOUDFLARE_JURISDICTION: "${CLOUDFLARE_JURISDICTION:-}"
+      UPLOAD_VIA_SERVER: "${UPLOAD_VIA_SERVER:-}"
 
       # === Social Media API Settings
-      X_API_KEY: ''
-      X_API_SECRET: ''
-      LINKEDIN_CLIENT_ID: ''
-      LINKEDIN_CLIENT_SECRET: ''
-      REDDIT_CLIENT_ID: ''
-      REDDIT_CLIENT_SECRET: ''
-      GITHUB_CLIENT_ID: ''
-      GITHUB_CLIENT_SECRET: ''
-      BEEHIIVE_API_KEY: ''
-      BEEHIIVE_PUBLICATION_ID: ''
-      THREADS_APP_ID: ''
-      THREADS_APP_SECRET: ''
-      FACEBOOK_APP_ID: ''
-      FACEBOOK_APP_SECRET: ''
-      YOUTUBE_CLIENT_ID: ''
-      YOUTUBE_CLIENT_SECRET: ''
-      TIKTOK_CLIENT_ID: ''
-      TIKTOK_CLIENT_SECRET: ''
-      PINTEREST_CLIENT_ID: ''
-      PINTEREST_CLIENT_SECRET: ''
-      DRIBBBLE_CLIENT_ID: ''
-      DRIBBBLE_CLIENT_SECRET: ''
-      DISCORD_CLIENT_ID: ''
-      DISCORD_CLIENT_SECRET: ''
-      DISCORD_BOT_TOKEN_ID: ''
-      SLACK_ID: ''
-      SLACK_SECRET: ''
-      SLACK_SIGNING_SECRET: ''
-      MASTODON_URL: 'https://mastodon.social'
-      MASTODON_CLIENT_ID: ''
-      MASTODON_CLIENT_SECRET: ''
+      X_API_KEY: "${X_API_KEY:-}"
+      X_API_SECRET: "${X_API_SECRET:-}"
+      X_URL: "${X_URL:-}"
+      LINKEDIN_CLIENT_ID: "${LINKEDIN_CLIENT_ID:-}"
+      LINKEDIN_CLIENT_SECRET: "${LINKEDIN_CLIENT_SECRET:-}"
+      REDDIT_CLIENT_ID: "${REDDIT_CLIENT_ID:-}"
+      REDDIT_CLIENT_SECRET: "${REDDIT_CLIENT_SECRET:-}"
+      GITHUB_CLIENT_ID: "${GITHUB_CLIENT_ID:-}"
+      GITHUB_CLIENT_SECRET: "${GITHUB_CLIENT_SECRET:-}"
+      BEEHIIVE_API_KEY: "${BEEHIIVE_API_KEY:-}"
+      BEEHIIVE_PUBLICATION_ID: "${BEEHIIVE_PUBLICATION_ID:-}"
+      THREADS_APP_ID: "${THREADS_APP_ID:-}"
+      THREADS_APP_SECRET: "${THREADS_APP_SECRET:-}"
+      FACEBOOK_APP_ID: "${FACEBOOK_APP_ID:-}"
+      FACEBOOK_APP_SECRET: "${FACEBOOK_APP_SECRET:-}"
+      YOUTUBE_CLIENT_ID: "${YOUTUBE_CLIENT_ID:-}"
+      YOUTUBE_CLIENT_SECRET: "${YOUTUBE_CLIENT_SECRET:-}"
+      TIKTOK_CLIENT_ID: "${TIKTOK_CLIENT_ID:-}"
+      TIKTOK_CLIENT_SECRET: "${TIKTOK_CLIENT_SECRET:-}"
+      TIKTOK_BUSINESS_CLIENT_ID: "${TIKTOK_BUSINESS_CLIENT_ID:-}"
+      TIKTOK_BUSINESS_CLIENT_SECRET: "${TIKTOK_BUSINESS_CLIENT_SECRET:-}"
+      PINTEREST_CLIENT_ID: "${PINTEREST_CLIENT_ID:-}"
+      PINTEREST_CLIENT_SECRET: "${PINTEREST_CLIENT_SECRET:-}"
+      DRIBBBLE_CLIENT_ID: "${DRIBBBLE_CLIENT_ID:-}"
+      DRIBBBLE_CLIENT_SECRET: "${DRIBBBLE_CLIENT_SECRET:-}"
+      DISCORD_CLIENT_ID: "${DISCORD_CLIENT_ID:-}"
+      DISCORD_CLIENT_SECRET: "${DISCORD_CLIENT_SECRET:-}"
+      DISCORD_BOT_TOKEN_ID: "${DISCORD_BOT_TOKEN_ID:-}"
+      SLACK_ID: "${SLACK_ID:-}"
+      SLACK_SECRET: "${SLACK_SECRET:-}"
+      SLACK_SIGNING_SECRET: "${SLACK_SIGNING_SECRET:-}"
+      MASTODON_URL: "${MASTODON_URL:-https://mastodon.social}"
+      MASTODON_CLIENT_ID: "${MASTODON_CLIENT_ID:-}"
+      MASTODON_CLIENT_SECRET: "${MASTODON_CLIENT_SECRET:-}"
+      # Instagram standalone (the Facebook-page path reuses FACEBOOK_APP_*).
+      INSTAGRAM_APP_ID: "${INSTAGRAM_APP_ID:-}"
+      INSTAGRAM_APP_SECRET: "${INSTAGRAM_APP_SECRET:-}"
+      TELEGRAM_TOKEN: "${TELEGRAM_TOKEN:-}"
+      TELEGRAM_BOT_NAME: "${TELEGRAM_BOT_NAME:-}"
+      TWITCH_CLIENT_ID: "${TWITCH_CLIENT_ID:-}"
+      TWITCH_CLIENT_SECRET: "${TWITCH_CLIENT_SECRET:-}"
+      KICK_CLIENT_ID: "${KICK_CLIENT_ID:-}"
+      KICK_SECRET: "${KICK_SECRET:-}"
+      TUMBLR_CLIENT_ID: "${TUMBLR_CLIENT_ID:-}"
+      TUMBLR_CLIENT_SECRET: "${TUMBLR_CLIENT_SECRET:-}"
+      VK_ID: "${VK_ID:-}"
+      WHOP_CLIENT_ID: "${WHOP_CLIENT_ID:-}"
+      GOOGLE_GMB_CLIENT_ID: "${GOOGLE_GMB_CLIENT_ID:-}"
+      GOOGLE_GMB_CLIENT_SECRET: "${GOOGLE_GMB_CLIENT_SECRET:-}"
+      NEYNAR_CLIENT_ID: "${NEYNAR_CLIENT_ID:-}"
+      NEYNAR_SECRET_KEY: "${NEYNAR_SECRET_KEY:-}"
+      MEWE_HOST: "${MEWE_HOST:-}"
+      MEWE_APP_ID: "${MEWE_APP_ID:-}"
+      MEWE_API_KEY: "${MEWE_API_KEY:-}"
+      HIDDEN_PROVIDERS: "${HIDDEN_PROVIDERS:-}"
+      MIGRATE_PROVIDERS: "${MIGRATE_PROVIDERS:-}"
+
+      # === Email
+      # EMAIL_PROVIDER must be "resend" or "nodemailer". Any other value,
+      # including blank, selects a no-op provider that sends nothing.
+      EMAIL_PROVIDER: "${EMAIL_PROVIDER:-}"
+      EMAIL_FROM_ADDRESS: "${EMAIL_FROM_ADDRESS:-}"
+      EMAIL_FROM_NAME: "${EMAIL_FROM_NAME:-}"
+      RESEND_API_KEY: "${RESEND_API_KEY:-}"
+      EMAIL_HOST: "${EMAIL_HOST:-}"
+      EMAIL_PORT: "${EMAIL_PORT:-}"
+      EMAIL_USER: "${EMAIL_USER:-}"
+      EMAIL_PASS: "${EMAIL_PASS:-}"
+      EMAIL_SECURE: "${EMAIL_SECURE:-}"
+      REQUIRE_EMAIL_ACTIVATION: "${REQUIRE_EMAIL_ACTIVATION:-}"
+
+      # === Abuse / captcha / passwordless
+      # Compared to the exact string "true". Blank keeps password + OAuth only.
+      PASSWORDLESS_LOGIN: "${PASSWORDLESS_LOGIN:-}"
+      TURNSTILE_SITE_KEY: "${TURNSTILE_SITE_KEY:-}"
+      TURNSTILE_SECRET: "${TURNSTILE_SECRET:-}"
+      GUARD_WINDOW_MS: "${GUARD_WINDOW_MS:-}"
+      GUARD_CAPTCHA_ACTIONS: "${GUARD_CAPTCHA_ACTIONS:-}"
+      GUARD_OTP_REQUEST_EMAIL: "${GUARD_OTP_REQUEST_EMAIL:-}"
+      GUARD_OTP_REQUEST_IP: "${GUARD_OTP_REQUEST_IP:-}"
+      GUARD_OTP_VERIFY_EMAIL: "${GUARD_OTP_VERIFY_EMAIL:-}"
+      GUARD_OTP_VERIFY_IP: "${GUARD_OTP_VERIFY_IP:-}"
+      GUARD_LOGIN_EMAIL: "${GUARD_LOGIN_EMAIL:-}"
+      GUARD_LOGIN_IP: "${GUARD_LOGIN_IP:-}"
+      GUARD_REGISTER_EMAIL: "${GUARD_REGISTER_EMAIL:-}"
+      GUARD_REGISTER_IP: "${GUARD_REGISTER_IP:-}"
+      GUARD_FORGOT_EMAIL: "${GUARD_FORGOT_EMAIL:-}"
+      GUARD_FORGOT_IP: "${GUARD_FORGOT_IP:-}"
+
+      # === Chrome extension (Skool cookie connect)
+      EXTENSION_ID: "${EXTENSION_ID:-}"
+      EXTENSION_STORE_URL: "${EXTENSION_STORE_URL:-}"
 
       # === OAuth & Authentik Settings
-      # NEXT_PUBLIC_POSTQUEEN_OAUTH_DISPLAY_NAME: 'Authentik'
-      # NEXT_PUBLIC_POSTQUEEN_OAUTH_LOGO_URL: 'https://raw.githubusercontent.com/walkxcode/dashboard-icons/master/png/authentik.png'
-      # POSTQUEEN_GENERIC_OAUTH: 'false'
-      # POSTQUEEN_OAUTH_URL: 'https://auth.example.com'
-      # POSTQUEEN_OAUTH_AUTH_URL: 'https://auth.example.com/application/o/authorize'
-      # POSTQUEEN_OAUTH_TOKEN_URL: 'https://auth.example.com/application/o/token'
-      # POSTQUEEN_OAUTH_USERINFO_URL: 'https://authentik.example.com/application/o/userinfo'
-      # POSTQUEEN_OAUTH_CLIENT_ID: ''
-      # POSTQUEEN_OAUTH_CLIENT_SECRET: ''
+      # POSTQUEEN_OAUTH_URL is listed in older comments; the app does not read it.
+      NEXT_PUBLIC_POSTQUEEN_OAUTH_DISPLAY_NAME: "${NEXT_PUBLIC_POSTQUEEN_OAUTH_DISPLAY_NAME:-}"
+      NEXT_PUBLIC_POSTQUEEN_OAUTH_LOGO_URL: "${NEXT_PUBLIC_POSTQUEEN_OAUTH_LOGO_URL:-}"
+      POSTQUEEN_GENERIC_OAUTH: "${POSTQUEEN_GENERIC_OAUTH:-}"
+      POSTQUEEN_OAUTH_AUTH_URL: "${POSTQUEEN_OAUTH_AUTH_URL:-}"
+      POSTQUEEN_OAUTH_TOKEN_URL: "${POSTQUEEN_OAUTH_TOKEN_URL:-}"
+      POSTQUEEN_OAUTH_USERINFO_URL: "${POSTQUEEN_OAUTH_USERINFO_URL:-}"
+      POSTQUEEN_OAUTH_CLIENT_ID: "${POSTQUEEN_OAUTH_CLIENT_ID:-}"
+      POSTQUEEN_OAUTH_CLIENT_SECRET: "${POSTQUEEN_OAUTH_CLIENT_SECRET:-}"
+      APPLE_CLIENT_ID: "${APPLE_CLIENT_ID:-}"
+      APPLE_TEAM_ID: "${APPLE_TEAM_ID:-}"
+      APPLE_KEY_ID: "${APPLE_KEY_ID:-}"
+      APPLE_PRIVATE_KEY: "${APPLE_PRIVATE_KEY:-}"
+      APPLE_APP_BUNDLE_ID: "${APPLE_APP_BUNDLE_ID:-}"
 
       # === Sentry
-
-      # NEXT_PUBLIC_SENTRY_DSN: 'http://spotlight:8969/stream'
-      # SENTRY_SPOTLIGHT: '1'
+      NEXT_PUBLIC_SENTRY_DSN: "${NEXT_PUBLIC_SENTRY_DSN:-}"
+      SENTRY_SPOTLIGHT: "${SENTRY_SPOTLIGHT:-}"
 
       # === Misc Settings
-      OPENAI_API_KEY: ''
-      NEXT_PUBLIC_POLOTNO: ''
-      API_LIMIT: 30
+      OPENAI_API_KEY: "${OPENAI_API_KEY:-}"
+      NEXT_PUBLIC_POLOTNO: "${NEXT_PUBLIC_POLOTNO:-}"
+      API_LIMIT: ${API_LIMIT:-30}
+      LEGAL_URL: "${LEGAL_URL:-}"
+      SUPPORT_EMAIL: "${SUPPORT_EMAIL:-}"
+      REPOSITORY_URL: "${REPOSITORY_URL:-}"
+      ONBOARDING_VIDEO_URL: "${ONBOARDING_VIDEO_URL:-}"
+      AFFILIATE_URL: "${AFFILIATE_URL:-}"
+      AGENCY_NOTIFICATION_EMAIL: "${AGENCY_NOTIFICATION_EMAIL:-}"
 
       # === Payment / Stripe Settings
-      FEE_AMOUNT: 0.05
-      STRIPE_PUBLISHABLE_KEY: ''
-      STRIPE_SECRET_KEY: ''
-      STRIPE_SIGNING_KEY: ''
-      STRIPE_SIGNING_KEY_CONNECT: ''
+      FEE_AMOUNT: ${FEE_AMOUNT:-0.05}
+      STRIPE_PUBLISHABLE_KEY: "${STRIPE_PUBLISHABLE_KEY:-}"
+      STRIPE_SECRET_KEY: "${STRIPE_SECRET_KEY:-}"
+      STRIPE_SIGNING_KEY: "${STRIPE_SIGNING_KEY:-}"
+      STRIPE_SIGNING_KEY_CONNECT: "${STRIPE_SIGNING_KEY_CONNECT:-}"
 
       # === Developer Settings
-      NX_ADD_PLUGINS: false
+      NX_ADD_PLUGINS: ${NX_ADD_PLUGINS:-false}
 
       # === Short Link Service Settings (Optional - leave blank if unused)
-      # DUB_TOKEN: ""
-      # DUB_API_ENDPOINT: "https://api.dub.co"
-      # DUB_SHORT_LINK_DOMAIN: "dub.sh"
-      # SHORT_IO_SECRET_KEY: ""
-      # KUTT_API_KEY: ""
-      # KUTT_API_ENDPOINT: "https://kutt.it/api/v2"
-      # KUTT_SHORT_LINK_DOMAIN: "kutt.it"
-      # LINK_DRIP_API_KEY: ""
-      # LINK_DRIP_API_ENDPOINT: "https://api.linkdrip.com/v1/"
-      # LINK_DRIP_SHORT_LINK_DOMAIN: "dripl.ink"
+      DUB_TOKEN: "${DUB_TOKEN:-}"
+      DUB_API_ENDPOINT: "${DUB_API_ENDPOINT:-}"
+      DUB_SHORT_LINK_DOMAIN: "${DUB_SHORT_LINK_DOMAIN:-}"
+      SHORT_IO_SECRET_KEY: "${SHORT_IO_SECRET_KEY:-}"
+      KUTT_API_KEY: "${KUTT_API_KEY:-}"
+      KUTT_API_ENDPOINT: "${KUTT_API_ENDPOINT:-}"
+      KUTT_SHORT_LINK_DOMAIN: "${KUTT_SHORT_LINK_DOMAIN:-}"
+      LINK_DRIP_API_KEY: "${LINK_DRIP_API_KEY:-}"
+      LINK_DRIP_API_ENDPOINT: "${LINK_DRIP_API_ENDPOINT:-}"
+      LINK_DRIP_SHORT_LINK_DOMAIN: "${LINK_DRIP_SHORT_LINK_DOMAIN:-}"
 
     volumes:
       - postqueen-config:/config/
