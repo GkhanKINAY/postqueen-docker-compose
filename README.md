@@ -5,7 +5,7 @@
 </p>
 
 <h3 align="center">
-  <a href="https://postqueen.ai/agent">🆕 NEW: meet the PostQueen Agent, run your social media from Claude Code, ChatGPT, OpenClaw or Hermes »</a>
+  <a href="https://postqueen.ai/agent">🆕 NEW: meet the PostQueen Agent, run your social media from Claude Code, ChatGPT, OpenClaw, Hermes or Grok Bot »</a>
 </h3>
 
 <br/>
@@ -255,15 +255,17 @@ Skip the setup entirely: create an account, connect your channels, and your firs
 
 ---
 
-## 🦞 Meet her open agents: OpenClaw &amp; Hermes
+## 🦞 Meet her bots: OpenClaw, Hermes &amp; Grok Bot
 
 Two open-source agents already speak PostQueen natively. **OpenClaw** lives on your machine and turns any chat app into her front door. **Hermes** does the same, then goes further: hand it a single brief and it plans, writes and schedules your entire week on its own. Both drive the same `postqueen` CLI, so everything they do shows up on your calendar.
+
+**Grok Bot** is the cloud agent, not grok.com chat: tell it the PostQueen MCP URL in the Bot conversation. A custom connector at grok.com/connectors does not install her there.
 
 <p align="center">
   <img src=".github/assets/open-agents.svg" width="660" alt="OpenClaw and Hermes running PostQueen: chat apps feed OpenClaw, a one-line brief feeds Hermes, both drive the postqueen CLI and posts land on the calendar" />
 </p>
 
-<a href="https://postqueen.ai/openclaw"><img src=".github/assets/spotlight-openclaw.svg" width="410" alt="OpenClaw: runs on your machine and takes her messages from WhatsApp, Telegram, Slack or Discord. Opens the set-up guide." /></a> <a href="https://postqueen.ai/hermes-agent"><img src=".github/assets/spotlight-hermes.svg" width="410" alt="Hermes: the self-improving autonomous agent that turns one brief into a planned, verified week. Opens the set-up guide." /></a>
+<a href="https://postqueen.ai/openclaw"><img src=".github/assets/spotlight-openclaw.svg" width="410" alt="OpenClaw: runs on your machine and takes her messages from WhatsApp, Telegram, Slack or Discord. Opens the set-up guide." /></a> <a href="https://postqueen.ai/hermes-agent"><img src=".github/assets/spotlight-hermes.svg" width="410" alt="Hermes: the self-improving autonomous agent that turns one brief into a planned, verified week. Opens the set-up guide." /></a> <a href="https://postqueen.ai/grok-bot"><img src=".github/assets/spotlight-grok-bot.svg" width="410" alt="Grok Bot: the cloud agent. Tell it the MCP URL in chat. Not grok.com/connectors. Opens the set-up guide." /></a>
 
 **Any other agent works too.** If it can run a CLI command or call MCP, it can run your socials. [Agent guide »](https://postqueen.ai/agent)
 
