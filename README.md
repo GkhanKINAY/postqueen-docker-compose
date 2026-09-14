@@ -96,18 +96,17 @@ The stack earns its appetite: alongside the app it runs a full Temporal cluster 
 
 ## 🚀 Quick start
 
-Configuration uses the `environment:` block in `docker-compose.yaml`. Defaults ship inline. A sibling `.env` now reaches the container: listed keys use `${VAR:-default}`, and the `postqueen` service also loads `.env` when that file exists.
+Local HTTP needs a sibling `.env` **before** `docker compose up -d`. Compose interpolates `${VAR:-default}` into listed keys, and the `postqueen` service also loads that file when it exists (`env_file`). Skipping it leaves the YAML JWT placeholder and no `NOT_SECURED`, so the login cookie fails on Safari and anything that is not treated as localhost.
 
 ```bash
 git clone https://github.com/GkhanKINAY/postqueen-docker-compose
 cd postqueen-docker-compose
 
-# Before your first run, set JWT_SECRET (in `.env` or in docker-compose.yaml)
-# to a long, unique random string. If you expose the app beyond localhost,
-# also set MAIN_URL, FRONTEND_URL, and NEXT_PUBLIC_BACKEND_URL.
-
+printf 'JWT_SECRET=%s\nENCRYPTION_KEY=%s\nNOT_SECURED=true\n' "$(openssl rand -hex 32)" "$(openssl rand -hex 32)" > .env
 docker compose up -d
 ```
+
+`NOT_SECURED=true` is for local HTTP login only. Do not set it on a public server. If you expose the app beyond localhost, drop that line, set `MAIN_URL`, `FRONTEND_URL`, and `NEXT_PUBLIC_BACKEND_URL` to HTTPS, and put a reverse proxy in front (see [Going to production](#-going-to-production-https-and-oauth)).
 
 <p align="center">
   <img src=".github/assets/compose-up.svg" width="620" alt="docker compose up: the PostQueen stack starts and is ready on localhost 4007" />
@@ -121,9 +120,10 @@ http://localhost:4007
 
 **Before your first run**
 
-The shipped `docker-compose.yaml` contains **placeholder secrets** meant for local testing only. Change these before exposing the app to anyone:
+The `printf` above writes unique `JWT_SECRET` and `ENCRYPTION_KEY` values. If you skip `.env`, the shipped YAML still contains **placeholder secrets** meant for local testing only. Change these before exposing the app to anyone:
 
 - **`JWT_SECRET`** ships with a placeholder default (`random string that is unique to every install...`). Replace it with your own long, random string. Leaving the placeholder in place is a security hole: anyone could forge session tokens.
+- **`ENCRYPTION_KEY`** is empty in the YAML. Unset, the app falls back to `JWT_SECRET`. Set it on first run so you can rotate the signing key later without disconnecting channels.
 - **Database password** defaults to `postqueen-password`. Change it in the `postqueen-postgres` service **and** in the matching `DATABASE_URL` on the app service so the two stay in sync.
 
 > ⚠️ There is no TLS here: the stack serves plain HTTP on `localhost:4007`. That is fine for trying things out, but before you expose the app or connect real social accounts, read [Going to production](#-going-to-production-https-and-oauth) below.
@@ -140,6 +140,8 @@ The app is configured entirely through environment variables on the `postqueen` 
 | `FRONTEND_URL` | `http://localhost:4007` | Public URL the browser loads |
 | `NEXT_PUBLIC_BACKEND_URL` | `http://localhost:4007/api` | Public API base URL used by the frontend |
 | `JWT_SECRET` | *(placeholder, change it)* | Signs session tokens, must be unique per install |
+| `ENCRYPTION_KEY` | *(empty, falls back to `JWT_SECRET`)* | Encrypts integration tokens at rest. Set it before you have real data. |
+| `NOT_SECURED` | unset | `true` for local HTTP login only. Never on a public server. Not listed in the YAML; `env_file` still injects it. |
 | `DATABASE_URL` | `postgresql://postqueen-user:postqueen-password@postqueen-postgres:5432/postqueen-db-local` | PostgreSQL connection string |
 | `REDIS_URL` | `redis://postqueen-redis:6379` | Redis connection string |
 | `STORAGE_PROVIDER` | `local` | Where uploaded media lives (`local` or `cloudflare`) |
@@ -148,11 +150,13 @@ The app is configured entirely through environment variables on the `postqueen` 
 
 Supply values in either place:
 
-1. **A `.env` file next to `docker-compose.yaml`.** Compose interpolates `${VAR}` from it, and `env_file` also injects extra keys that are not listed in the YAML (Instagram, Telegram, email, `GUARD_*`, `ENCRYPTION_KEY`, and the rest of the documented set are listed so they pass through).
+1. **A `.env` file next to `docker-compose.yaml`.** Compose interpolates `${VAR}` from it, and `env_file` also injects extra keys that are not listed in the YAML (`NOT_SECURED` is the important local one; Instagram, Telegram, email, `GUARD_*`, `ENCRYPTION_KEY`, and the rest of the documented set are listed so they pass through).
 2. **Edit the `environment:` block** if you would rather keep everything in the YAML.
 
 ```env
 JWT_SECRET=your-long-random-string
+ENCRYPTION_KEY=another-long-random-string
+NOT_SECURED=true
 INSTAGRAM_APP_ID=12345678901234567890
 EMAIL_PROVIDER=resend
 RESEND_API_KEY=re_your_key_here
@@ -194,7 +198,7 @@ An optional `spotlight` service for debugging is available under the `debug` Com
 The compose stack serves plain HTTP on `localhost:4007`. To connect real social accounts you need a public HTTPS domain behind a reverse proxy, because the networks send their OAuth callbacks there. Three steps take you from localhost to a production instance:
 
 1. **Put a reverse proxy in front of port `4007`** and let it terminate TLS. Step-by-step guides: [Caddy](https://docs.postqueen.ai/reverse-proxies/caddy), [nginx](https://docs.postqueen.ai/reverse-proxies/nginx), [Traefik](https://docs.postqueen.ai/reverse-proxies/traefik).
-2. **Point the URL variables at your domain.** Set `MAIN_URL`, `FRONTEND_URL` and `NEXT_PUBLIC_BACKEND_URL` (with `/api` appended) to the public HTTPS address, then recreate the app container.
+2. **Point the URL variables at your domain and drop `NOT_SECURED`.** Set `MAIN_URL`, `FRONTEND_URL` and `NEXT_PUBLIC_BACKEND_URL` (with `/api` appended) to the public HTTPS address. Remove `NOT_SECURED` from `.env` (do not set it on a public server), then recreate the app container.
 3. **Create your OAuth apps.** On self-host, each social network needs its own OAuth app with your domain in its callback URL. Start with the [OAuth configuration guide](https://docs.postqueen.ai/configuration/oauth), then follow the per-network walkthroughs in the [providers overview](https://docs.postqueen.ai/providers/overview).
 
 ---
@@ -226,6 +230,7 @@ Check the [release notes](https://github.com/GkhanKINAY/postqueen-app/releases) 
 
 ## 🩺 Troubleshooting
 
+- **Register works, then you are logged out (Safari, or a host that is not localhost):** `.env` is missing `NOT_SECURED=true`. Add it, then `docker compose up -d --no-deps --force-recreate postqueen`. Never set this on a public HTTPS install.
 - **Stack will not boot, containers OOM, blank screen or login loop:** [self-host troubleshooting](https://docs.postqueen.ai/troubleshooting/self-host)
 - **A social network refuses to connect:** [OAuth connection issues](https://docs.postqueen.ai/troubleshooting/oauth-connect)
 - **Anything else:** start at the [troubleshooting overview](https://docs.postqueen.ai/troubleshooting/overview)
