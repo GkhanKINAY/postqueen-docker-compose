@@ -93,7 +93,6 @@ services:
       DISCORD_BOT_TOKEN_ID: "${DISCORD_BOT_TOKEN_ID:-}"
       SLACK_ID: "${SLACK_ID:-}"
       SLACK_SECRET: "${SLACK_SECRET:-}"
-      SLACK_SIGNING_SECRET: "${SLACK_SIGNING_SECRET:-}"
       MASTODON_URL: "${MASTODON_URL:-https://mastodon.social}"
       MASTODON_CLIENT_ID: "${MASTODON_CLIENT_ID:-}"
       MASTODON_CLIENT_SECRET: "${MASTODON_CLIENT_SECRET:-}"
@@ -114,6 +113,9 @@ services:
       GOOGLE_GMB_CLIENT_SECRET: "${GOOGLE_GMB_CLIENT_SECRET:-}"
       NEYNAR_CLIENT_ID: "${NEYNAR_CLIENT_ID:-}"
       NEYNAR_SECRET_KEY: "${NEYNAR_SECRET_KEY:-}"
+      NEYNAR_APP_FID: "${NEYNAR_APP_FID:-}"
+      NEYNAR_APP_MNEMONIC: "${NEYNAR_APP_MNEMONIC:-}"
+      NEYNAR_SPONSOR_SIGNERS: "${NEYNAR_SPONSOR_SIGNERS:-}"
       MEWE_HOST: "${MEWE_HOST:-}"
       MEWE_APP_ID: "${MEWE_APP_ID:-}"
       MEWE_API_KEY: "${MEWE_API_KEY:-}"
@@ -188,14 +190,9 @@ services:
       AGENCY_NOTIFICATION_EMAIL: "${AGENCY_NOTIFICATION_EMAIL:-}"
 
       # === Payment / Stripe Settings
-      FEE_AMOUNT: ${FEE_AMOUNT:-0.05}
       STRIPE_PUBLISHABLE_KEY: "${STRIPE_PUBLISHABLE_KEY:-}"
       STRIPE_SECRET_KEY: "${STRIPE_SECRET_KEY:-}"
       STRIPE_SIGNING_KEY: "${STRIPE_SIGNING_KEY:-}"
-      STRIPE_SIGNING_KEY_CONNECT: "${STRIPE_SIGNING_KEY_CONNECT:-}"
-
-      # === Developer Settings
-      NX_ADD_PLUGINS: ${NX_ADD_PLUGINS:-false}
 
       # === Short Link Service Settings (Optional - leave blank if unused)
       DUB_TOKEN: "${DUB_TOKEN:-}"
@@ -213,6 +210,9 @@ services:
       - postqueen-config:/config/
       - postqueen-uploads:/uploads/
     ports:
+      # Reachable on every interface, so a test install answers on the
+      # server's IP. Behind a reverse proxy on the same host, bind it to
+      # loopback instead: "127.0.0.1:4007:5000".
       - "4007:5000"
     networks:
       - postqueen-network
