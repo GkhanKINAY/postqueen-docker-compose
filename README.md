@@ -153,7 +153,7 @@ The compose file follows `latest`. To stay on one release, change the image to a
 - **A network will not connect:** check its [setup page](https://docs.postqueen.ai/installation/providers/overview), then [self-host troubleshooting](https://docs.postqueen.ai/troubleshooting/self-host)
 - **Anything else:** [common errors](https://docs.postqueen.ai/troubleshooting/common-errors)
 
-Prefer Kubernetes? [postqueen-helmchart](https://github.com/GkhanKINAY/postqueen-helmchart) runs the same image, with a Temporal server you provide. Prefer not to run a server at all? The hosted service at [postqueen.ai](https://postqueen.ai) does it for you: [start a 7-day trial, $0 due today](https://postqueen.ai/pricing).
+Prefer Kubernetes? [postqueen-helmchart](https://github.com/GkhanKINAY/postqueen-helmchart) runs the same image, with a Temporal server you provide. Prefer not to run a server at all? The hosted service at [postqueen.ai](https://postqueen.ai) does it for you: [start a 7-day trial, $0 due today](https://app.postqueen.ai/auth?utm_source=github&utm_medium=readme&utm_campaign=postqueen-docker-compose&utm_content=quick-start).
 
 ## Privacy and security
 
