@@ -1,14 +1,24 @@
-# PostQueen Docker Compose
-
-Self-host PostQueen with Docker Compose: the app with PostgreSQL, Redis and a Temporal cluster on one host.
-
-<p>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-blue.svg" alt="License: AGPL-3.0"></a>
-  <a href="https://github.com/GkhanKINAY/postqueen-app/pkgs/container/postqueen-app"><img src="https://img.shields.io/badge/ghcr.io-postqueen--app-2496ED?logo=docker&logoColor=white" alt="Image: ghcr.io/gkhankinay/postqueen-app"></a>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/banner-dark.png">
+    <img src=".github/assets/banner-light.png" width="100%" alt="PostQueen Docker Compose. Run PostQueen on your own server: the app with PostgreSQL, Redis and a Temporal cluster on one host.">
+  </picture>
 </p>
 
 <p align="center">
-  <img src=".github/assets/compose-up.svg" width="620" alt="docker compose up: the eight PostQueen services start and the app is ready on localhost 4007" />
+  Self-host PostQueen with Docker Compose: the app with PostgreSQL, Redis and a Temporal cluster on one host.
+</p>
+
+<p align="center">
+  <a href="https://postqueen.ai"><b>Website</b></a> ·
+  <a href="https://docs.postqueen.ai/installation/docker-compose"><b>Docs</b></a> ·
+  <a href="https://postqueen.ai/pricing"><b>Pricing</b></a> ·
+  <a href="https://github.com/GkhanKINAY/postqueen-app/pkgs/container/postqueen-app"><b>Image</b></a>
+</p>
+
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-7C3AED?labelColor=15131C" alt="License: AGPL-3.0"></a>
+  <a href="https://github.com/GkhanKINAY/postqueen-app/pkgs/container/postqueen-app"><img src="https://img.shields.io/badge/image-ghcr.io%2Fgkhankinay%2Fpostqueen--app-7C3AED?labelColor=15131C&logo=docker&logoColor=white" alt="Image: ghcr.io/gkhankinay/postqueen-app"></a>
 </p>
 
 ## What it does
@@ -18,11 +28,16 @@ Self-host PostQueen with Docker Compose: the app with PostgreSQL, Redis and a Te
 - Serves the app on `http://localhost:4007`.
 - Keeps your data in named Docker volumes.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/architecture-dark.png">
+  <img src=".github/assets/architecture-light.png" width="100%" alt="Diagram of the eight services on one Docker host. The browser reaches the postqueen container on port 4007. It holds the web app, the API and MCP server, and the workers, uses postqueen-postgres and postqueen-redis, and talks to Temporal on port 7233. Temporal uses its own PostgreSQL and Elasticsearch, and the Temporal UI and admin tools connect to it.">
+</picture>
+
 [PostQueen](https://github.com/GkhanKINAY/postqueen-app) is a social media scheduler with an AI copilot that posts to 30+ networks. It is open source under AGPL-3.0, and this repository is the quickest way to run it on your own server.
 
 ## Quick start
 
-You need Docker Engine 24 or newer, Docker Compose v2 (`docker compose`) and about 4 GB of RAM, because the Temporal cluster includes Elasticsearch.
+You need Docker Engine 24 or newer, Docker Compose v2.24 or newer (`docker compose`) and about 4 GB of RAM, because the Temporal cluster includes Elasticsearch.
 
 ```bash
 git clone https://github.com/GkhanKINAY/postqueen-docker-compose
@@ -71,7 +86,7 @@ The three URL variables must point at the same public address, or you get a blan
 | `temporal-ui` | `temporalio/ui:2.34.0` | `127.0.0.1:8080` | Temporal dashboard |
 | `temporal-postgresql` | `postgres:16` | none | Temporal's database |
 | `temporal-elasticsearch` | `elasticsearch:7.17.27` | none | Temporal's search index, with a 256 MB heap |
-| `temporal-admin-tools` | `temporalio/admin-tools` | none | Temporal command-line tools |
+| `temporal-admin-tools` | `temporalio/admin-tools:1.28.1-tctl-1.18.4-cli-1.4.1` | none | Temporal command-line tools |
 
 An optional `spotlight` service for debugging runs only with the `debug` profile.
 
@@ -114,7 +129,7 @@ Prefer Kubernetes? [postqueen-helmchart](https://github.com/GkhanKINAY/postqueen
 ## Privacy and security
 
 - Channels connect through each network's official OAuth sign-in where the network offers one. On your own server, that is the developer app you create for each network.
-- Some networks, such as Bluesky, Lemmy, WordPress and Nostr, need an app password or a key that you paste in.
+- Some networks, such as Bluesky, Lemmy, WordPress and Nostr, need an app password, an account password or a key that you paste in.
 - Your instance stores these credentials in its database so it can post for you, and replaces them when you remove the channel.
 - For the hosted service, read the [privacy policy](https://postqueen.ai/privacy-policy), or [delete your account](https://postqueen.ai/delete-my-account).
 
