@@ -19,9 +19,10 @@ services:
       FRONTEND_URL: "${FRONTEND_URL:-http://localhost:4007}"
       NEXT_PUBLIC_BACKEND_URL: "${NEXT_PUBLIC_BACKEND_URL:-http://localhost:4007/api}"
       JWT_SECRET: "${JWT_SECRET:-random string that is unique to every install - just type random characters here!}"
-      # Separate from JWT_SECRET: encrypts integration tokens at rest. Unset,
-      # the app falls back to JWT_SECRET. Set it before you have real data so
-      # you can rotate the signing key later without disconnecting channels.
+      # Separate from JWT_SECRET: encrypts stored secrets, such as the app
+      # passwords and keys typed in when a channel is connected. Unset, the app
+      # falls back to JWT_SECRET. Set it before you have real data so you can
+      # rotate the signing key later without disconnecting channels.
       ENCRYPTION_KEY: "${ENCRYPTION_KEY:-}"
       PREVIOUS_ENCRYPTION_KEY: "${PREVIOUS_ENCRYPTION_KEY:-}"
       DATABASE_URL: "${DATABASE_URL:-postgresql://postqueen-user:postqueen-password@postqueen-postgres:5432/postqueen-db-local}"

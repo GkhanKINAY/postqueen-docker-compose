@@ -1,375 +1,132 @@
-<p align="center">
-  <a href="https://postqueen.ai">
-    <img src=".github/assets/header.svg?v=6" width="840" alt="PostQueen, the queen of your posts, your AI social media assistant" />
-  </a>
-</p>
+# PostQueen Docker Compose
 
-<h3 align="center">
-  <a href="https://postqueen.ai/agent">🆕 NEW: meet the PostQueen Agent, run your social media from Claude Code, ChatGPT, OpenClaw, Hermes or Grok Bot »</a>
-</h3>
+Self-host PostQueen with Docker Compose: the app with PostgreSQL, Redis and a Temporal cluster on one host.
 
-<br/>
-
-<p align="center">
-  <strong>Stop doing social media yourself.</strong>
-</p>
-
-<p align="center">
-  PostQueen is an AI employee for your social media. Tell her what to share, in one sentence. She writes the copy, designs the visual and schedules it on every channel you have. You just review the calendar.
-</p>
-
-<p align="center">
-  <strong><a href="https://postqueen.ai">PostQueen</a></strong> is the open-source alternative to <strong>Buffer, Hootsuite, Sprout Social</strong> and <strong>Later</strong>.
-</p>
-
-<br/>
-
-<p align="center"><img src=".github/assets/divider.svg" width="840" alt="" /></p>
-
-<br/>
-
-<p align="center">
-  <a href="https://postqueen.ai">Website</a> &nbsp;·&nbsp;
-  <a href="https://postqueen.ai/pricing">Pricing</a> &nbsp;·&nbsp;
-  <a href="https://docs.postqueen.ai">Docs</a> &nbsp;·&nbsp;
-  <a href="https://api.postqueen.ai/docs">API Reference</a> &nbsp;·&nbsp;
-  <a href="https://postqueen.ai/agent">Agents</a> &nbsp;·&nbsp;
-  <a href="https://postqueen.ai/mcp">MCP</a> &nbsp;·&nbsp;
-  <a href="https://www.npmjs.com/package/postqueen">CLI</a>
-</p>
-
-<p align="center">
+<p>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-blue.svg" alt="License: AGPL-3.0"></a>
-  <a href="https://github.com/GkhanKINAY/postqueen-docker-compose/blob/main/docker-compose.yaml"><img src="https://img.shields.io/badge/ghcr.io-postqueen--app%3Alatest-2496ED?logo=docker&logoColor=white" alt="Docker image: ghcr.io/gkhankinay/postqueen-app:latest"></a>
-</p>
-
-<br/>
-
-<p align="center">
-  <!-- CHANNEL ICONS: 30 individual imgs, natural flow, mobile-wrap -->
-  <img src=".github/assets/channels/instagram.svg" height="44" alt="Instagram" /> <img src=".github/assets/channels/youtube.svg" height="44" alt="YouTube" /> <img src=".github/assets/channels/google-business.svg" height="44" alt="Google Business Profile" /> <img src=".github/assets/channels/dribbble.svg" height="44" alt="Dribbble" /> <img src=".github/assets/channels/linkedin.svg" height="44" alt="LinkedIn" /> <img src=".github/assets/channels/reddit.svg" height="44" alt="Reddit" /> <img src=".github/assets/channels/tiktok.svg" height="44" alt="TikTok" /> <img src=".github/assets/channels/facebook.svg" height="44" alt="Facebook" /> <img src=".github/assets/channels/pinterest.svg" height="44" alt="Pinterest" /> <img src=".github/assets/channels/threads.svg" height="44" alt="Threads" /> <img src=".github/assets/channels/x.svg" height="44" alt="X" /> <img src=".github/assets/channels/slack.svg" height="44" alt="Slack" /> <img src=".github/assets/channels/discord.svg" height="44" alt="Discord" /> <img src=".github/assets/channels/mastodon.svg" height="44" alt="Mastodon" /> <img src=".github/assets/channels/bluesky.svg" height="44" alt="Bluesky" /> <img src=".github/assets/channels/lemmy.svg" height="44" alt="Lemmy" /> <img src=".github/assets/channels/warpcast.svg" height="44" alt="Farcaster" /> <img src=".github/assets/channels/telegram.svg" height="44" alt="Telegram" /> <img src=".github/assets/channels/nostr.svg" height="44" alt="Nostr" /> <img src=".github/assets/channels/vk.svg" height="44" alt="VK" /> <img src=".github/assets/channels/devto.svg" height="44" alt="Dev.to" /> <img src=".github/assets/channels/medium.svg" height="44" alt="Medium" /> <img src=".github/assets/channels/hashnode.svg" height="44" alt="Hashnode" /> <img src=".github/assets/channels/wordpress.svg" height="44" alt="WordPress" /> <img src=".github/assets/channels/whop.svg" height="44" alt="Whop" /> <img src=".github/assets/channels/kick.svg" height="44" alt="Kick" /> <img src=".github/assets/channels/mewe.svg" height="44" alt="MeWe" /> <img src=".github/assets/channels/twitch.svg" height="44" alt="Twitch" /> <img src=".github/assets/channels/listmonk.svg" height="44" alt="Listmonk" /> <img src=".github/assets/channels/skool.svg" height="44" alt="Skool" />
-</p>
-
-
-<br/>
-
-<p align="center"><img src=".github/assets/divider.svg" width="840" alt="" /></p>
-
-<br/>
-
-<h3 align="center">Schedule and generate posts with AI</h3>
-
-<p align="center">
-  <img src=".github/assets/calendar.svg" width="660" alt="The PostQueen calendar: a week of posts across your channels, with AI generation and drag to reschedule" />
-</p>
-
-<br/>
-
-<p align="center">
-  <strong>Free for 7 days in the cloud. Forever free on your own server.</strong>
+  <a href="https://github.com/GkhanKINAY/postqueen-app/pkgs/container/postqueen-app"><img src="https://img.shields.io/badge/ghcr.io-postqueen--app-2496ED?logo=docker&logoColor=white" alt="Image: ghcr.io/gkhankinay/postqueen-app"></a>
 </p>
 
 <p align="center">
-  <a href="https://postqueen.ai"><img src=".github/assets/cta-cloud.svg" height="52" alt="Start free for 7 days" /></a>
-  &nbsp;&nbsp;
-  <a href="#-quick-start"><img src=".github/assets/cta-selfhost.svg" height="52" alt="Self-host it free" /></a>
+  <img src=".github/assets/compose-up.svg" width="620" alt="docker compose up: the eight PostQueen services start and the app is ready on localhost 4007" />
 </p>
 
-<br/>
+## What it does
 
----
+- Runs the prebuilt image `ghcr.io/gkhankinay/postqueen-app:latest`, with no build step.
+- Starts PostgreSQL for the app, Redis as its cache, and a Temporal cluster for scheduling and publishing.
+- Serves the app on `http://localhost:4007`.
+- Keeps your data in named Docker volumes.
 
-## 🐳 What you are deploying
+[PostQueen](https://github.com/GkhanKINAY/postqueen-app) is a social media scheduler with an AI copilot that posts to 30+ networks. It is open source under AGPL-3.0, and this repository is the quickest way to run it on your own server.
 
-[PostQueen](https://github.com/GkhanKINAY/postqueen-app) is an open-source AI social media manager: you tell her what to share and she writes, schedules and publishes it to 30+ networks. This repository is the easiest way to run her on your own server. One `docker-compose.yaml` pulls the prebuilt image [`ghcr.io/gkhankinay/postqueen-app:latest`](https://github.com/GkhanKINAY/postqueen-app) and brings up everything she needs, the app plus PostgreSQL, Redis and a full [Temporal](https://temporal.io) cluster for scheduling, with no build step. The Temporal cluster does make the stack hungry, so give it a host with 4 GB of RAM or more. In return, self-hosting is completely free with no channel limits: every connector and every feature, on your own hardware.
+## Quick start
 
----
-
-## ✅ Prerequisites
-
-- **Docker Engine** 24 or newer
-- **Docker Compose v2** (the `docker compose` plugin, not the legacy `docker-compose` binary)
-
-The stack earns its appetite: alongside the app it runs a full Temporal cluster with the Temporal server, its own PostgreSQL and an Elasticsearch visibility store (JVM heap around 256 MB in the compose file). A small VPS can OOM during startup, so plan for a host with about **4 GB of RAM or more** and a few GB of free disk for the named volumes.
-
----
-
-## 🚀 Quick start
-
-Local HTTP needs a sibling `.env` **before** `docker compose up -d`. Compose interpolates `${VAR:-default}` into listed keys, and the `postqueen` service also loads that file when it exists (`env_file`). Skipping it leaves the YAML JWT placeholder and no `NOT_SECURED`, so the login cookie fails on Safari and anything that is not treated as localhost.
+You need Docker Engine 24 or newer, Docker Compose v2 (`docker compose`) and about 4 GB of RAM, because the Temporal cluster includes Elasticsearch.
 
 ```bash
 git clone https://github.com/GkhanKINAY/postqueen-docker-compose
 cd postqueen-docker-compose
-
 printf 'JWT_SECRET=%s\nENCRYPTION_KEY=%s\nNOT_SECURED=true\n' "$(openssl rand -hex 32)" "$(openssl rand -hex 32)" > .env
 docker compose up -d
 ```
 
-`NOT_SECURED=true` is for local HTTP login only. Do not set it on a public server. If you expose the app beyond localhost, drop that line, set `MAIN_URL`, `FRONTEND_URL`, and `NEXT_PUBLIC_BACKEND_URL` to HTTPS, and put a reverse proxy in front (see [Going to production](#-going-to-production-https-and-oauth)).
+The first start takes a couple of minutes while Temporal sets itself up. Then open `http://localhost:4007`.
 
-<p align="center">
-  <img src=".github/assets/compose-up.svg" width="620" alt="docker compose up: the PostQueen stack starts and is ready on localhost 4007" />
-</p>
+The `.env` file holds your own secrets. `NOT_SECURED=true` lets the login cookie work over plain HTTP on your machine. Remove it before the app is reachable by anyone else, and follow [Going to production](#going-to-production).
 
-The first run takes a couple of minutes while Temporal initializes. Once the containers are healthy, open the app at:
+## Running it
 
-```
-http://localhost:4007
-```
+### Configuration
 
-**Before your first run**
-
-The `printf` above writes unique `JWT_SECRET` and `ENCRYPTION_KEY` values. If you skip `.env`, the shipped YAML still contains **placeholder secrets** meant for local testing only. Change these before exposing the app to anyone:
-
-- **`JWT_SECRET`** ships with a placeholder default (`random string that is unique to every install...`). Replace it with your own long, random string. Leaving the placeholder in place is a security hole: anyone could forge session tokens.
-- **`ENCRYPTION_KEY`** is empty in the YAML. Unset, the app falls back to `JWT_SECRET`. Set it on first run so you can rotate the signing key later without disconnecting channels.
-- **Database password** defaults to `postqueen-password`. Change it in the `postqueen-postgres` service **and** in the matching `DATABASE_URL` on the app service so the two stay in sync.
-
-> ⚠️ There is no TLS here: the stack serves plain HTTP on `localhost:4007`. That is fine for trying things out, but before you expose the app or connect real social accounts, read [Going to production](#-going-to-production-https-and-oauth) below.
-
----
-
-## 🔧 Required environment
-
-The app is configured entirely through environment variables on the `postqueen` service. The essentials, with the same defaults as before:
-
-| Variable | Default in compose | What it does |
-| --- | --- | --- |
-| `MAIN_URL` | `http://localhost:4007` | Public base URL of the app |
-| `FRONTEND_URL` | `http://localhost:4007` | Public URL the browser loads |
-| `NEXT_PUBLIC_BACKEND_URL` | `http://localhost:4007/api` | Public API base URL used by the frontend |
-| `JWT_SECRET` | *(placeholder, change it)* | Signs session tokens, must be unique per install |
-| `ENCRYPTION_KEY` | *(empty, falls back to `JWT_SECRET`)* | Encrypts integration tokens at rest. Set it before you have real data. |
-| `NOT_SECURED` | unset | `true` for local HTTP login only. Never on a public server. Not listed in the YAML; `env_file` still injects it. |
-| `DATABASE_URL` | `postgresql://postqueen-user:postqueen-password@postqueen-postgres:5432/postqueen-db-local` | PostgreSQL connection string |
-| `REDIS_URL` | `redis://postqueen-redis:6379` | Redis connection string |
-| `STORAGE_PROVIDER` | `local` | Where uploaded media lives (`local` or `cloudflare`) |
-
-> Point the three URL variables (`MAIN_URL`, `FRONTEND_URL`, and `NEXT_PUBLIC_BACKEND_URL`) at the **same externally reachable address**, with `/api` appended for the backend URL. Mismatched URLs are the most common cause of a blank screen or a login loop.
-
-Supply values in either place:
-
-1. **A `.env` file next to `docker-compose.yaml`.** Compose interpolates `${VAR}` from it, and `env_file` also injects extra keys that are not listed in the YAML (`NOT_SECURED` is the important local one; Instagram, Telegram, email, `GUARD_*`, `ENCRYPTION_KEY`, and the rest of the documented set are listed so they pass through).
-2. **Edit the `environment:` block** if you would rather keep everything in the YAML.
-
-```env
-JWT_SECRET=your-long-random-string
-ENCRYPTION_KEY=another-long-random-string
-NOT_SECURED=true
-INSTAGRAM_APP_ID=12345678901234567890
-EMAIL_PROVIDER=resend
-RESEND_API_KEY=re_your_key_here
-```
-
-After changing variables, recreate only the app container so it picks up the new environment:
+Every setting is an environment variable on the `postqueen` service. Put your values in the `.env` file next to `docker-compose.yaml`; Compose reads it for the listed keys, and `env_file` passes extra keys through. After a change, recreate the app container:
 
 ```bash
 docker compose up -d --no-deps --force-recreate postqueen
 ```
 
-> Mounting a file into `/config` does nothing: nothing in the image reads that path. A literal in `environment:` still wins over `env_file` for the same key; the `${VAR:-default}` form is what lets a sibling `.env` fill that key instead of an empty pin.
+| Variable | Default | What it does |
+| --- | --- | --- |
+| `MAIN_URL` | `http://localhost:4007` | Public address of the app |
+| `FRONTEND_URL` | `http://localhost:4007` | Address the browser loads |
+| `NEXT_PUBLIC_BACKEND_URL` | `http://localhost:4007/api` | Public API address, the same host plus `/api` |
+| `JWT_SECRET` | a placeholder | Signs login sessions. Set a long random value that is unique to your install. |
+| `ENCRYPTION_KEY` | empty, falls back to `JWT_SECRET` | Encrypts stored secrets, such as the app passwords and keys typed in when a channel is connected. Set it before you have real data. |
+| `NOT_SECURED` | not set | `true` only for local HTTP login. Never on a public server. |
+| `DISABLE_REGISTRATION` | `false` | `true` closes sign-up once the first account exists. |
+| `DATABASE_URL` | the bundled `postqueen-postgres` | PostgreSQL connection string |
+| `REDIS_URL` | the bundled `postqueen-redis` | Redis connection string |
+| `STORAGE_PROVIDER` | `local` | Where uploaded media is kept: `local` or `cloudflare` |
 
-The full list of every supported variable (social connectors, storage, Stripe, OAuth, short-link services, and more) lives in the [configuration reference](https://docs.postqueen.ai/configuration/reference).
+The three URL variables must point at the same public address, or you get a blank screen or a login loop. The bundled database password is `postqueen-password`; change it in both the `postqueen-postgres` service and `DATABASE_URL`. Every other setting, including email, storage and each network's keys, is in the [configuration reference](https://docs.postqueen.ai/configuration/reference).
 
----
+### Services
 
-## 📦 What you get
-
-Bringing the stack up starts these services:
-
-| Service | Image | Exposed on host | Purpose |
+| Service | Image | Host port | Purpose |
 | --- | --- | --- | --- |
-| `postqueen` | `ghcr.io/gkhankinay/postqueen-app:latest` | **`4007`** | Web UI, API, and Temporal workers |
-| `postqueen-postgres` | `postgres:17-alpine` | internal | Application database |
-| `postqueen-redis` | `redis:7.2` | internal | Cache and queues |
-| `temporal` | `temporalio/auto-setup` | `127.0.0.1:7233` | Workflow engine (scheduling and publishing) |
-| `temporal-ui` | `temporalio/ui` | `127.0.0.1:8080` | Temporal dashboard |
-| `temporal-postgresql` | `postgres:16` | internal | Temporal's own database |
-| `temporal-elasticsearch` | `elasticsearch:7.17` | internal | Temporal visibility store (heap about 256 MB) |
-| `temporal-admin-tools` | `temporalio/admin-tools` | internal | Temporal CLI helper |
+| `postqueen` | `ghcr.io/gkhankinay/postqueen-app:latest` | `4007` | Web app, API and Temporal workers |
+| `postqueen-postgres` | `postgres:17-alpine` | none | App database |
+| `postqueen-redis` | `redis:7.2` | none | Cache |
+| `temporal` | `temporalio/auto-setup:1.28.1` | `127.0.0.1:7233` | Workflow engine for scheduling and publishing |
+| `temporal-ui` | `temporalio/ui:2.34.0` | `127.0.0.1:8080` | Temporal dashboard |
+| `temporal-postgresql` | `postgres:16` | none | Temporal's database |
+| `temporal-elasticsearch` | `elasticsearch:7.17.27` | none | Temporal's search index, with a 256 MB heap |
+| `temporal-admin-tools` | `temporalio/admin-tools` | none | Temporal command-line tools |
 
-An optional `spotlight` service for debugging is available under the `debug` Compose profile and is off by default.
+An optional `spotlight` service for debugging runs only with the `debug` profile.
 
----
+### Going to production
 
-## 🌐 Going to production (HTTPS and OAuth)
+Social networks send their sign-in callbacks to a public HTTPS address, so connecting real accounts needs a domain.
 
-The compose stack serves plain HTTP on `localhost:4007`. To connect real social accounts you need a public HTTPS domain behind a reverse proxy, because the networks send their OAuth callbacks there. Three steps take you from localhost to a production instance:
+1. Put a reverse proxy with TLS in front of port `4007`: [Caddy](https://docs.postqueen.ai/reverse-proxies/caddy), [nginx](https://docs.postqueen.ai/reverse-proxies/nginx) or [Traefik](https://docs.postqueen.ai/reverse-proxies/traefik).
+2. Set `MAIN_URL`, `FRONTEND_URL` and `NEXT_PUBLIC_BACKEND_URL` to your HTTPS address, remove `NOT_SECURED`, and recreate the app container.
+3. Create a developer app for each network you want to use, with your domain in its callback URL. Start with the [OAuth guide](https://docs.postqueen.ai/configuration/oauth) and the [provider guides](https://docs.postqueen.ai/providers/overview).
 
-1. **Put a reverse proxy in front of port `4007`** and let it terminate TLS. Step-by-step guides: [Caddy](https://docs.postqueen.ai/reverse-proxies/caddy), [nginx](https://docs.postqueen.ai/reverse-proxies/nginx), [Traefik](https://docs.postqueen.ai/reverse-proxies/traefik).
-2. **Point the URL variables at your domain and drop `NOT_SECURED`.** Set `MAIN_URL`, `FRONTEND_URL` and `NEXT_PUBLIC_BACKEND_URL` (with `/api` appended) to the public HTTPS address. Remove `NOT_SECURED` from `.env` (do not set it on a public server), then recreate the app container.
-3. **Create your OAuth apps.** On self-host, each social network needs its own OAuth app with your domain in its callback URL. Start with the [OAuth configuration guide](https://docs.postqueen.ai/configuration/oauth), then follow the per-network walkthroughs in the [providers overview](https://docs.postqueen.ai/providers/overview).
+### Backups
 
----
+Back up these volumes before an upgrade:
 
-## 💾 Data and backups
+- `postgres-volume`: the app database
+- `postqueen-uploads`: uploaded media, when `STORAGE_PROVIDER` is `local`
+- `temporal-postgres-data`: Temporal's database, which holds scheduled work in progress
 
-Application state is kept in named Docker volumes, most importantly:
+`postqueen-redis-data` and `temporal-elasticsearch-data` hold a cache and an index that rebuild themselves. `docker compose down -v` deletes every volume, and your data with them.
 
-- `postgres-volume`: the application database
-- `postqueen-uploads`: locally stored media (when `STORAGE_PROVIDER=local`)
-- `postqueen-config`: app configuration
-
-Back these up (for example with `docker run --rm -v postgres-volume:/data ...`) before upgrades or migrations. Removing them with `docker compose down -v` deletes all your data. For a complete backup also include `temporal-postgres-data` (it holds in-flight scheduled posts). The `postqueen-redis-data` and `temporal-elasticsearch-data` volumes are caches and indexes that can be recreated.
-
----
-
-## ⬆️ Upgrading
-
-Pull the latest image and recreate the app container:
+### Upgrading
 
 ```bash
 docker compose pull
 docker compose up -d
 ```
 
-Check the [release notes](https://github.com/GkhanKINAY/postqueen-app/releases) before major upgrades in case extra steps are required.
+The compose file follows `latest`. To stay on one release, change the image to a version tag such as `ghcr.io/gkhankinay/postqueen-app:v3.6.76`. Versions are listed under the app's [tags](https://github.com/GkhanKINAY/postqueen-app/tags).
 
----
+### Troubleshooting
 
-## 🩺 Troubleshooting
+- **You register, then get logged out** (Safari, or any host that is not localhost): add `NOT_SECURED=true` to `.env` and recreate the app container. Only do this on a local install.
+- **Containers run out of memory, or you see a blank screen or a login loop:** [self-host troubleshooting](https://docs.postqueen.ai/troubleshooting/self-host)
+- **A network will not connect:** [connection issues](https://docs.postqueen.ai/troubleshooting/oauth-connect)
+- **Anything else:** [troubleshooting overview](https://docs.postqueen.ai/troubleshooting/overview)
 
-- **Register works, then you are logged out (Safari, or a host that is not localhost):** `.env` is missing `NOT_SECURED=true`. Add it, then `docker compose up -d --no-deps --force-recreate postqueen`. Never set this on a public HTTPS install.
-- **Stack will not boot, containers OOM, blank screen or login loop:** [self-host troubleshooting](https://docs.postqueen.ai/troubleshooting/self-host)
-- **A social network refuses to connect:** [OAuth connection issues](https://docs.postqueen.ai/troubleshooting/oauth-connect)
-- **Anything else:** start at the [troubleshooting overview](https://docs.postqueen.ai/troubleshooting/overview)
+Prefer Kubernetes? [postqueen-helmchart](https://github.com/GkhanKINAY/postqueen-helmchart) runs the same image, with a Temporal server you provide. Prefer not to run a server at all? The hosted service at [postqueen.ai](https://postqueen.ai) does it for you: [start a 7-day trial, $0 due today](https://postqueen.ai/pricing).
 
----
+## Privacy and security
 
-## ☸️ Kubernetes instead?
+- Channels connect through each network's official OAuth sign-in where the network offers one. On your own server, that is the developer app you create for each network.
+- Some networks, such as Bluesky, Lemmy, WordPress and Nostr, need an app password or a key that you paste in.
+- Your instance stores these credentials in its database so it can post for you, and replaces them when you remove the channel.
+- For the hosted service, read the [privacy policy](https://postqueen.ai/privacy-policy), or [delete your account](https://postqueen.ai/delete-my-account).
 
-If your infrastructure runs on Kubernetes, skip Compose and use the official Helm chart: [postqueen-helmchart](https://github.com/GkhanKINAY/postqueen-helmchart) packages the app with bundled PostgreSQL and Redis subcharts and values-driven configuration (bring your own Temporal, the chart's README explains the `TEMPORAL_ADDRESS` requirement). The [Kubernetes installation guide](https://docs.postqueen.ai/installation/kubernetes-helm) walks you through it.
+## Links
 
----
-
-## ☁️ Cloud, the fast lane
-
-Skip the setup entirely: create an account, connect your channels, and your first post can go out today. The **7-day trial** is free, and there is nothing to install or maintain.
-
-<p align="center">
-  <a href="https://postqueen.ai"><img src=".github/assets/cta-cloud.svg" height="52" alt="Start free for 7 days" /></a>
-</p>
-
-<br/>
-
----
-
-## 🦞 Meet her bots: OpenClaw, Hermes &amp; Grok Bot
-
-Two open-source agents already speak PostQueen natively. **OpenClaw** lives on your machine and turns any chat app into her front door. **Hermes** does the same, then goes further: hand it a single brief and it plans, writes and schedules your entire week on its own. Both drive the same `postqueen` CLI, so everything they do shows up on your calendar.
-
-**Grok Bot** is the cloud agent, not grok.com chat: tell it the PostQueen MCP URL in the Bot conversation. A custom connector at grok.com/connectors does not install her there.
-
-<p align="center">
-  <img src=".github/assets/open-agents.svg" width="660" alt="OpenClaw and Hermes running PostQueen: chat apps feed OpenClaw, a one-line brief feeds Hermes, both drive the postqueen CLI and posts land on the calendar" />
-</p>
-
-<a href="https://postqueen.ai/openclaw"><img src=".github/assets/spotlight-openclaw.svg" width="410" alt="OpenClaw: runs on your machine and takes her messages from WhatsApp, Telegram, Slack or Discord. Opens the set-up guide." /></a> <a href="https://postqueen.ai/hermes-agent"><img src=".github/assets/spotlight-hermes.svg" width="410" alt="Hermes: the self-improving autonomous agent that turns one brief into a planned, verified week. Opens the set-up guide." /></a> <a href="https://postqueen.ai/grok-bot"><img src=".github/assets/spotlight-grok-bot.svg" width="410" alt="Grok Bot: the cloud agent. Tell it the MCP URL in chat. Not grok.com/connectors. Opens the set-up guide." /></a>
-
-**Any other agent works too.** If it can run a CLI command or call MCP, it can run your socials. [Agent guide »](https://postqueen.ai/agent)
-
-<br/>
-
----
-
-## 🌐 Publish everywhere
-
-One post from you, and she is everywhere at once. PostQueen publishes to **30+ networks** out of the box:
-
-<p align="center">
-  <img src=".github/assets/channels/instagram.svg" height="44" alt="Instagram" /> <img src=".github/assets/channels/youtube.svg" height="44" alt="YouTube" /> <img src=".github/assets/channels/google-business.svg" height="44" alt="Google Business Profile" /> <img src=".github/assets/channels/dribbble.svg" height="44" alt="Dribbble" /> <img src=".github/assets/channels/linkedin.svg" height="44" alt="LinkedIn" /> <img src=".github/assets/channels/reddit.svg" height="44" alt="Reddit" /> <img src=".github/assets/channels/tiktok.svg" height="44" alt="TikTok" /> <img src=".github/assets/channels/facebook.svg" height="44" alt="Facebook" /> <img src=".github/assets/channels/pinterest.svg" height="44" alt="Pinterest" /> <img src=".github/assets/channels/threads.svg" height="44" alt="Threads" /> <img src=".github/assets/channels/x.svg" height="44" alt="X" /> <img src=".github/assets/channels/slack.svg" height="44" alt="Slack" /> <img src=".github/assets/channels/discord.svg" height="44" alt="Discord" /> <img src=".github/assets/channels/mastodon.svg" height="44" alt="Mastodon" /> <img src=".github/assets/channels/bluesky.svg" height="44" alt="Bluesky" /> <img src=".github/assets/channels/lemmy.svg" height="44" alt="Lemmy" /> <img src=".github/assets/channels/warpcast.svg" height="44" alt="Farcaster" /> <img src=".github/assets/channels/telegram.svg" height="44" alt="Telegram" /> <img src=".github/assets/channels/nostr.svg" height="44" alt="Nostr" /> <img src=".github/assets/channels/vk.svg" height="44" alt="VK" /> <img src=".github/assets/channels/devto.svg" height="44" alt="Dev.to" /> <img src=".github/assets/channels/medium.svg" height="44" alt="Medium" /> <img src=".github/assets/channels/hashnode.svg" height="44" alt="Hashnode" /> <img src=".github/assets/channels/wordpress.svg" height="44" alt="WordPress" /> <img src=".github/assets/channels/whop.svg" height="44" alt="Whop" /> <img src=".github/assets/channels/kick.svg" height="44" alt="Kick" /> <img src=".github/assets/channels/mewe.svg" height="44" alt="MeWe" /> <img src=".github/assets/channels/twitch.svg" height="44" alt="Twitch" /> <img src=".github/assets/channels/listmonk.svg" height="44" alt="Listmonk" /> <img src=".github/assets/channels/skool.svg" height="44" alt="Skool" />
-</p>
-
-| Category | Networks |
+| | |
 | --- | --- |
-| **Major social** | X, LinkedIn, Instagram, Facebook, TikTok, YouTube, Threads, Pinterest, Reddit, Bluesky |
-| **Community and chat** | Discord, Slack, Telegram, Mastodon, Twitch, Kick, MeWe, VK |
-| **Publishing and blogs** | WordPress, Medium, Dev.to, Hashnode, Tumblr, Listmonk, Moltbook |
-| **Web3 and decentralized** | Nostr, Farcaster, Lemmy |
-| **Creator and business** | Google Business Profile, Whop, Skool, Dribbble |
-
-LinkedIn and Instagram each support both personal and page posting. New connectors ship regularly: see the full list with per-network guides at [postqueen.ai/channels](https://postqueen.ai/channels).
-
-<br/>
-
----
-
-## 🧱 Under the hood
-
-- **pnpm workspaces** monorepo
-- **[Next.js](https://nextjs.org)** (React) frontend
-- **[NestJS](https://nestjs.com)** backend API
-- **[Prisma](https://www.prisma.io)** ORM on **PostgreSQL**
-- **[Temporal](https://temporal.io)** for durable scheduling: posts fire on time even through crashes and restarts
-- **Redis** for cache and queues
-- **[Resend](https://resend.com)** for email notifications
-
-<br/>
-
----
-
-## 🛡️ Compliance
-
-- PostQueen is an open-source, self-hostable social media scheduler that supports X, LinkedIn, Instagram, Bluesky, Mastodon, Discord and 30+ more.
-- The hosted service uses official, platform-approved OAuth flows.
-- PostQueen does not automate or scrape content from social media platforms.
-- PostQueen does not collect, store, or proxy API keys or access tokens from users.
-- PostQueen never asks users to paste social-platform credentials into the hosted product.
-- Users always authenticate directly with each platform (X, LinkedIn, Discord, and so on), which keeps every platform's compliance and your data privacy intact.
-
-<br/>
-
----
-
-## ❤️ Community and support
-
-- 🐛 **Found a bug or have an idea?** [Open an issue](https://github.com/GkhanKINAY/postqueen-docker-compose/issues).
-- 💌 **Need a hand?** Email **support@postqueen.ai**.
-- 📚 **Getting started?** The [docs](https://docs.postqueen.ai) walk you through everything.
-- 🤝 **Want to contribute?** Start with the [contribution guide](https://github.com/GkhanKINAY/postqueen-app/blob/main/CONTRIBUTING.md); security reports go to [SECURITY.md](https://github.com/GkhanKINAY/postqueen-app/blob/main/SECURITY.md).
-
-If PostQueen saves you time, a ⭐ on the repo genuinely helps other people find it.
-
-<br/>
-
----
-
-## 🙏 Thank you, Postiz
-
-PostQueen is a fork of [Postiz](https://github.com/gitroomhq/postiz-app) by Nevo David, released under AGPL-3.0. Postiz gave us a rock-solid open-source scheduler: the connectors, the calendar, the Temporal pipeline, years of careful work that we did not have to redo. We forked it because we wanted to take that foundation in a specific direction, a social media manager you talk to instead of operate, and building on Postiz let us start from something that already worked.
-
-Thank you, Nevo David and every Postiz contributor. This project exists because you chose to open-source yours. If PostQueen is not quite what you need, [Postiz](https://postiz.com) itself might be, and it deserves your star too. 🙏
-
-<br/>
-
----
-
-## 👑 The PostQueen ecosystem
-
-| Repository | What lives there |
-| --- | --- |
-| [postqueen-app](https://github.com/GkhanKINAY/postqueen-app) | The application itself: frontend, backend, workers |
-| [postqueen-agent](https://github.com/GkhanKINAY/postqueen-agent) | Agent CLI and skill: give any AI assistant hands |
-| [postqueen-docker-compose](https://github.com/GkhanKINAY/postqueen-docker-compose) | Self-host the whole stack with one command |
-| [postqueen-helmchart](https://github.com/GkhanKINAY/postqueen-helmchart) | Run it on Kubernetes |
-| [postqueen-n8n](https://github.com/GkhanKINAY/postqueen-n8n) | The n8n community node for no-code automation |
-| [postqueen-docs](https://github.com/GkhanKINAY/postqueen-docs) | Source of [docs.postqueen.ai](https://docs.postqueen.ai) |
-
-On npm: [`postqueen`](https://www.npmjs.com/package/postqueen) (CLI) · [`@postqueen/node`](https://www.npmjs.com/package/@postqueen/node) (SDK) · [`n8n-nodes-postqueen`](https://www.npmjs.com/package/n8n-nodes-postqueen) (n8n)
-
-<br/>
-
-<p align="center">
-  <strong>Long live the queen.</strong> 👑
-</p>
-
-<p align="center">
-  <a href="https://postqueen.ai"><img src=".github/assets/cta-cloud.svg" height="52" alt="Start free for 7 days" /></a>
-  &nbsp;&nbsp;
-  <a href="#-quick-start"><img src=".github/assets/cta-selfhost.svg" height="52" alt="Self-host it free" /></a>
-</p>
+| Docs | [Docker Compose guide](https://docs.postqueen.ai/installation/docker-compose) · [configuration reference](https://docs.postqueen.ai/configuration/reference) |
+| Image | [ghcr.io/gkhankinay/postqueen-app](https://github.com/GkhanKINAY/postqueen-app/pkgs/container/postqueen-app) |
+| Repositories | [app](https://github.com/GkhanKINAY/postqueen-app) · [CLI and skill](https://github.com/GkhanKINAY/postqueen-agent) · [n8n node](https://github.com/GkhanKINAY/postqueen-n8n) · [docs](https://github.com/GkhanKINAY/postqueen-docs) · [Docker Compose](https://github.com/GkhanKINAY/postqueen-docker-compose) · [Helm chart](https://github.com/GkhanKINAY/postqueen-helmchart) |
+| Help | support@postqueen.ai · [GitHub issues](https://github.com/GkhanKINAY/postqueen-docker-compose/issues) |
 
 ## License
 
-This repository's source code is available under the [AGPL-3.0 license](LICENSE). Original work © Nevo David / Gitroom and the Postiz contributors. Modifications © PostQueen.
+This repository is open source under the [AGPL-3.0 license](LICENSE). PostQueen started as a fork of [Postiz](https://github.com/gitroomhq/postiz-app) by Nevo David, and this repository started from [postiz-docker-compose](https://github.com/gitroomhq/postiz-docker-compose).
