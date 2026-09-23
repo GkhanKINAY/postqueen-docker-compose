@@ -94,9 +94,9 @@ An optional `spotlight` service for debugging runs only with the `debug` profile
 
 Social networks send their sign-in callbacks to a public HTTPS address, so connecting real accounts needs a domain.
 
-1. Put a reverse proxy with TLS in front of port `4007`: [Caddy](https://docs.postqueen.ai/reverse-proxies/caddy), [nginx](https://docs.postqueen.ai/reverse-proxies/nginx) or [Traefik](https://docs.postqueen.ai/reverse-proxies/traefik).
+1. Put a reverse proxy with TLS in front of port `4007`: [Caddy](https://docs.postqueen.ai/installation/domain-and-https), [nginx](https://docs.postqueen.ai/reverse-proxies/nginx) or [Traefik](https://docs.postqueen.ai/reverse-proxies/traefik).
 2. Set `MAIN_URL`, `FRONTEND_URL` and `NEXT_PUBLIC_BACKEND_URL` to your HTTPS address, remove `NOT_SECURED`, and recreate the app container.
-3. Create a developer app for each network you want to use, with your domain in its callback URL. Start with the [OAuth guide](https://docs.postqueen.ai/configuration/oauth) and the [provider guides](https://docs.postqueen.ai/providers/overview).
+3. Create a developer app for each network you want to use, with your domain in its callback URL. Start with the [OAuth guide](https://docs.postqueen.ai/configuration/oauth) and the [provider guides](https://docs.postqueen.ai/installation/providers/overview).
 
 ### Backups
 
@@ -121,8 +121,8 @@ The compose file follows `latest`. To stay on one release, change the image to a
 
 - **You register, then get logged out** (Safari, or any host that is not localhost): add `NOT_SECURED=true` to `.env` and recreate the app container. Only do this on a local install.
 - **Containers run out of memory, or you see a blank screen or a login loop:** [self-host troubleshooting](https://docs.postqueen.ai/troubleshooting/self-host)
-- **A network will not connect:** [connection issues](https://docs.postqueen.ai/troubleshooting/oauth-connect)
-- **Anything else:** [troubleshooting overview](https://docs.postqueen.ai/troubleshooting/overview)
+- **A network will not connect:** check its [setup page](https://docs.postqueen.ai/installation/providers/overview), then [self-host troubleshooting](https://docs.postqueen.ai/troubleshooting/self-host)
+- **Anything else:** [common errors](https://docs.postqueen.ai/troubleshooting/common-errors)
 
 Prefer Kubernetes? [postqueen-helmchart](https://github.com/GkhanKINAY/postqueen-helmchart) runs the same image, with a Temporal server you provide. Prefer not to run a server at all? The hosted service at [postqueen.ai](https://postqueen.ai) does it for you: [start a 7-day trial, $0 due today](https://postqueen.ai/pricing).
 
