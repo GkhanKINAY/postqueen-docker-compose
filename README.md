@@ -132,7 +132,7 @@ docker compose pull
 docker compose up -d
 ```
 
-The compose file follows `latest`. To stay on one release, change the image to a version tag such as `ghcr.io/gkhankinay/postqueen-app:v3.6.76`. Versions are listed under the app's [tags](https://github.com/GkhanKINAY/postqueen-app/tags).
+The compose file follows `latest`. To stay on one release, change the image to a version tag such as `ghcr.io/gkhankinay/postqueen-app:v3.6.84`. Versions are listed under the app's [releases](https://github.com/GkhanKINAY/postqueen-app/releases).
 
 ### Troubleshooting
 
