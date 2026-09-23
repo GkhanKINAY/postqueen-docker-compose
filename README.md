@@ -17,8 +17,8 @@
 </p>
 
 <p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-7C3AED?labelColor=15131C" alt="License: AGPL-3.0"></a>
-  <a href="https://github.com/GkhanKINAY/postqueen-app/pkgs/container/postqueen-app"><img src="https://img.shields.io/badge/image-ghcr.io%2Fgkhankinay%2Fpostqueen--app-7C3AED?labelColor=15131C&logo=docker&logoColor=white" alt="Image: ghcr.io/gkhankinay/postqueen-app"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-2563EB?labelColor=15131C" alt="License: AGPL-3.0"></a>
+  <a href="https://github.com/GkhanKINAY/postqueen-app/pkgs/container/postqueen-app"><img src="https://img.shields.io/badge/image-ghcr.io%2Fgkhankinay%2Fpostqueen--app-2496ED?labelColor=15131C&logo=docker&logoColor=white" alt="Image: ghcr.io/gkhankinay/postqueen-app"></a>
 </p>
 
 <p align="center">
